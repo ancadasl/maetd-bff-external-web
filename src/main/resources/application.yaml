@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+maetd:
+  jwt:
+    jwks-validator:
+      filter:
+        enabled: ${VALIDATOR_TOKEN:false}  # Cambiar a true si quieres validar JWT
+        excludes:
+          - /actuator
+          - /swagger-ui
+          - /v3/api-docs
+          - /health
+        jwksUrl: ${JWKS_URL_TOKEN:http://maetd-dev.zenerconsulting.com:31036/realms/maetd/protocol/openid-connect/certs}
+
+  clients:
+    rest:
+      oauth2Engine:
+        active: true
+        oauth2Clients:
+          - clientAlias: internal_ms_oauth
+            tokenUrl: ${TOKEN_URL:http://maetd-dev.zenerconsulting.com:31036/realms/maetd/protocol/openid-connect/token}
+            clientId: ${CLIENT_ID:ms-internal-rest-integrations}
+            clientSecret: ${CLIENT_SECRET:p98Z7GuGxO3OTz99OBTwKAyaYKioGEgy}
+            scopes:
+              - openid
+
+

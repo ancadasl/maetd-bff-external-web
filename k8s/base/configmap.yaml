@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: maetd-bff-external-web-configmap
+data:
+  # URLs de microservicios que el BFF consume
+  # CLIENT_REST_URL_FILE: "http://maetd-ms-market-files:8080"
+  # CLIENT_REST_URL_CONFIGURATION: "http://maetd-ms-market-global-configuration:8080"
+  # CLIENT_REST_URL_CREATOR: "http://maetd-ms-market-creators:8080"
+  # CLIENT_REST_URL_AUTOHEDGING: "http://maetd-ms-market-autohedging:8080"
+
+  # URL para validación de JWT
+  JWKS_URL_TOKEN: "http://maetd-dev.zenerconsulting.com:31036/realms/maetd/protocol/openid-connect/certs"

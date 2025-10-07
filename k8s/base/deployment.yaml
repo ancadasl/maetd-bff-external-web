@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maetd-bff-external-web
+  labels:
+    app: maetd-bff-external-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maetd-bff-external-web
+  template:
+    metadata:
+      labels:
+        app: maetd-bff-external-web
+    spec:
+      imagePullSecrets:
+        - name: acr-creadores-mercado
+      containers:
+        - name: maetd-bff-external-web
+          image: maetdmerchdevarc.azurecr.io/maetd-bff-external-web
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: maetd-bff-external-web-configmap
+          resources:
+            limits:
+              memory: "786Mi"

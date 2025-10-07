@@ -1,0 +1,47 @@
+apiVersion: skaffold/v4beta2
+kind: Config
+build:
+  artifacts:
+    - image: maetdmerchdevarc.azurecr.io/maetd-bff-external-web
+      jib: {}
+  tagPolicy:
+    gitCommit:
+      variant: CommitSha
+
+manifests:
+  kustomize:
+    paths:
+      - k8s/base
+
+profiles:
+  - name: local
+    activation:
+      - kubeContext: maetd-zener-local
+    manifests:
+      kustomize:
+        paths:
+          - k8s/overlays/local
+
+  - name: develop
+    activation:
+      - kubeContext: do-ams3-maetd-zener-dev-cluster
+    manifests:
+      kustomize:
+        paths:
+          - k8s/overlays/develop
+
+  - name: preproduction
+    activation:
+      - kubeContext: oc-preproduction
+    manifests:
+      kustomize:
+        paths:
+          - k8s/overlays/preproduction
+
+  - name: production
+    activation:
+      - kubeContext: oc-production
+    manifests:
+      kustomize:
+        paths:
+          - k8s/overlays/production

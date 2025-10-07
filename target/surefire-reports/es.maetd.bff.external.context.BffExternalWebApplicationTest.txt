@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: es.maetd.bff.external.context.BffExternalWebApplicationTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.122 s - in es.maetd.bff.external.context.BffExternalWebApplicationTest

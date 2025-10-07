@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PetWDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">maetd-bff-external-web</a> &gt; <a href="index.source.html" class="el_package">org.openapitools.model</a> &gt; <span class="el_source">PetWDTO.java</span></div><h1>PetWDTO.java</h1><pre class="source lang-java linenums">package org.openapitools.model;
+
+import java.net.URI;
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.List;
+import org.openapitools.model.CategoryWDTO;
+import org.openapitools.model.TagWDTO;
+import java.time.OffsetDateTime;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+import java.util.*;
+import javax.annotation.Generated;
+
+/**
+ * PetWDTO
+ */
+
+@JsonTypeName(&quot;Pet&quot;)
+@Generated(value = &quot;org.openapitools.codegen.languages.SpringCodegen&quot;, date = &quot;2025-10-07T14:21:35.094969609+02:00[Europe/Madrid]&quot;)
+<span class="nc" id="L28">public class PetWDTO {</span>
+
+  @JsonProperty(&quot;id&quot;)
+  private Long id;
+
+  @JsonProperty(&quot;category&quot;)
+  private CategoryWDTO category;
+
+  @JsonProperty(&quot;name&quot;)
+  private String name;
+
+<span class="nc" id="L39">  @JsonProperty(&quot;photoUrls&quot;)</span>
+  @Valid
+  private List&lt;String&gt; photoUrls = new ArrayList&lt;&gt;();
+
+<span class="nc" id="L43">  @JsonProperty(&quot;tags&quot;)</span>
+  @Valid
+  private List&lt;TagWDTO&gt; tags = null;
+
+  /**
+   * pet status in the store
+   */
+<span class="nc" id="L50">  public enum StatusEnum {</span>
+<span class="nc" id="L51">    AVAILABLE(&quot;available&quot;),</span>
+    
+<span class="nc" id="L53">    PENDING(&quot;pending&quot;),</span>
+    
+<span class="nc" id="L55">    SOLD(&quot;sold&quot;);</span>
+
+    private String value;
+
+<span class="nc" id="L59">    StatusEnum(String value) {</span>
+<span class="nc" id="L60">      this.value = value;</span>
+<span class="nc" id="L61">    }</span>
+
+    @JsonValue
+    public String getValue() {
+<span class="nc" id="L65">      return value;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L70">      return String.valueOf(value);</span>
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+<span class="nc bnc" id="L75" title="All 2 branches missed.">      for (StatusEnum b : StatusEnum.values()) {</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (b.value.equals(value)) {</span>
+<span class="nc" id="L77">          return b;</span>
+        }
+      }
+<span class="nc" id="L80">      throw new IllegalArgumentException(&quot;Unexpected value '&quot; + value + &quot;'&quot;);</span>
+    }
+  }
+
+  @JsonProperty(&quot;status&quot;)
+  private StatusEnum status;
+
+  public PetWDTO id(Long id) {
+<span class="nc" id="L88">    this.id = id;</span>
+<span class="nc" id="L89">    return this;</span>
+  }
+
+  /**
+   * Get id
+   * @return id
+  */
+  
+  @Schema(name = &quot;id&quot;, required = false)
+  public Long getId() {
+<span class="nc" id="L99">    return id;</span>
+  }
+
+  public void setId(Long id) {
+<span class="nc" id="L103">    this.id = id;</span>
+<span class="nc" id="L104">  }</span>
+
+  public PetWDTO category(CategoryWDTO category) {
+<span class="nc" id="L107">    this.category = category;</span>
+<span class="nc" id="L108">    return this;</span>
+  }
+
+  /**
+   * Get category
+   * @return category
+  */
+  @Valid 
+  @Schema(name = &quot;category&quot;, required = false)
+  public CategoryWDTO getCategory() {
+<span class="nc" id="L118">    return category;</span>
+  }
+
+  public void setCategory(CategoryWDTO category) {
+<span class="nc" id="L122">    this.category = category;</span>
+<span class="nc" id="L123">  }</span>
+
+  public PetWDTO name(String name) {
+<span class="nc" id="L126">    this.name = name;</span>
+<span class="nc" id="L127">    return this;</span>
+  }
+
+  /**
+   * Get name
+   * @return name
+  */
+  @NotNull 
+  @Schema(name = &quot;name&quot;, example = &quot;doggie&quot;, required = true)
+  public String getName() {
+<span class="nc" id="L137">    return name;</span>
+  }
+
+  public void setName(String name) {
+<span class="nc" id="L141">    this.name = name;</span>
+<span class="nc" id="L142">  }</span>
+
+  public PetWDTO photoUrls(List&lt;String&gt; photoUrls) {
+<span class="nc" id="L145">    this.photoUrls = photoUrls;</span>
+<span class="nc" id="L146">    return this;</span>
+  }
+
+  public PetWDTO addPhotoUrlsItem(String photoUrlsItem) {
+<span class="nc bnc" id="L150" title="All 2 branches missed.">    if (this.photoUrls == null) {</span>
+<span class="nc" id="L151">      this.photoUrls = new ArrayList&lt;&gt;();</span>
+    }
+<span class="nc" id="L153">    this.photoUrls.add(photoUrlsItem);</span>
+<span class="nc" id="L154">    return this;</span>
+  }
+
+  /**
+   * Get photoUrls
+   * @return photoUrls
+  */
+  @NotNull 
+  @Schema(name = &quot;photoUrls&quot;, required = true)
+  public List&lt;String&gt; getPhotoUrls() {
+<span class="nc" id="L164">    return photoUrls;</span>
+  }
+
+  public void setPhotoUrls(List&lt;String&gt; photoUrls) {
+<span class="nc" id="L168">    this.photoUrls = photoUrls;</span>
+<span class="nc" id="L169">  }</span>
+
+  public PetWDTO tags(List&lt;TagWDTO&gt; tags) {
+<span class="nc" id="L172">    this.tags = tags;</span>
+<span class="nc" id="L173">    return this;</span>
+  }
+
+  public PetWDTO addTagsItem(TagWDTO tagsItem) {
+<span class="nc bnc" id="L177" title="All 2 branches missed.">    if (this.tags == null) {</span>
+<span class="nc" id="L178">      this.tags = new ArrayList&lt;&gt;();</span>
+    }
+<span class="nc" id="L180">    this.tags.add(tagsItem);</span>
+<span class="nc" id="L181">    return this;</span>
+  }
+
+  /**
+   * Get tags
+   * @return tags
+  */
+  @Valid 
+  @Schema(name = &quot;tags&quot;, required = false)
+  public List&lt;TagWDTO&gt; getTags() {
+<span class="nc" id="L191">    return tags;</span>
+  }
+
+  public void setTags(List&lt;TagWDTO&gt; tags) {
+<span class="nc" id="L195">    this.tags = tags;</span>
+<span class="nc" id="L196">  }</span>
+
+  public PetWDTO status(StatusEnum status) {
+<span class="nc" id="L199">    this.status = status;</span>
+<span class="nc" id="L200">    return this;</span>
+  }
+
+  /**
+   * pet status in the store
+   * @return status
+  */
+  
+  @Schema(name = &quot;status&quot;, description = &quot;pet status in the store&quot;, required = false)
+  public StatusEnum getStatus() {
+<span class="nc" id="L210">    return status;</span>
+  }
+
+  public void setStatus(StatusEnum status) {
+<span class="nc" id="L214">    this.status = status;</span>
+<span class="nc" id="L215">  }</span>
+
+  @Override
+  public boolean equals(Object o) {
+<span class="nc bnc" id="L219" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L220">      return true;</span>
+    }
+<span class="nc bnc" id="L222" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L223">      return false;</span>
+    }
+<span class="nc" id="L225">    PetWDTO pet = (PetWDTO) o;</span>
+<span class="nc bnc" id="L226" title="All 2 branches missed.">    return Objects.equals(this.id, pet.id) &amp;&amp;</span>
+<span class="nc bnc" id="L227" title="All 2 branches missed.">        Objects.equals(this.category, pet.category) &amp;&amp;</span>
+<span class="nc bnc" id="L228" title="All 2 branches missed.">        Objects.equals(this.name, pet.name) &amp;&amp;</span>
+<span class="nc bnc" id="L229" title="All 2 branches missed.">        Objects.equals(this.photoUrls, pet.photoUrls) &amp;&amp;</span>
+<span class="nc bnc" id="L230" title="All 2 branches missed.">        Objects.equals(this.tags, pet.tags) &amp;&amp;</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">        Objects.equals(this.status, pet.status);</span>
+  }
+
+  @Override
+  public int hashCode() {
+<span class="nc" id="L236">    return Objects.hash(id, category, name, photoUrls, tags, status);</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="nc" id="L241">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L242">    sb.append(&quot;class PetWDTO {\n&quot;);</span>
+<span class="nc" id="L243">    sb.append(&quot;    id: &quot;).append(toIndentedString(id)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L244">    sb.append(&quot;    category: &quot;).append(toIndentedString(category)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L245">    sb.append(&quot;    name: &quot;).append(toIndentedString(name)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L246">    sb.append(&quot;    photoUrls: &quot;).append(toIndentedString(photoUrls)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L247">    sb.append(&quot;    tags: &quot;).append(toIndentedString(tags)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L248">    sb.append(&quot;    status: &quot;).append(toIndentedString(status)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L249">    sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L250">    return sb.toString();</span>
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+<span class="nc bnc" id="L258" title="All 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L259">      return &quot;null&quot;;</span>
+    }
+<span class="nc" id="L261">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+  }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
