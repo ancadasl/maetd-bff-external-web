@@ -4,6 +4,8 @@ metadata:
   name: maetd-bff-external-web
   labels:
     app: maetd-bff-external-web
+  namespace: external-web
+  
 spec:
   replicas: 1
   selector:
