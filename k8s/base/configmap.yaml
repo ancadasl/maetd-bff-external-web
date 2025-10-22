@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: maetd-bff-external-web-configmap
+  namespace: external-web
 data:
   # URLs de microservicios que el BFF consume
   # CLIENT_REST_URL_FILE: "http://maetd-ms-market-files:8080"
