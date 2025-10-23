@@ -95,7 +95,7 @@
         <dependency>
             <groupId>es.maetd.marketcreators</groupId>
             <artifactId>maetd-rest-clients</artifactId>
-            <version>1.0.36</version>
+            <version>1.0.38</version>
         </dependency>
 
         <!-- Observabilidad -->

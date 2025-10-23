@@ -24,5 +24,14 @@ maetd:
             clientSecret: ${CLIENT_SECRET:p98Z7GuGxO3OTz99OBTwKAyaYKioGEgy}
             scopes:
               - openid
+      systems:
+        FILES_MS:
+          oauth-client-alias: internal_ms_oauth
+          endpoints:
+            getFiles:
+              url: ${CLIENT_REST_URL_FILE:http://maetd-ms-market-files:8080}/files
+              method: get
+              headers:
+                "Content-Type": "application/json"
 
 

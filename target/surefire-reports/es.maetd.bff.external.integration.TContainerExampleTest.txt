@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: es.maetd.bff.external.integration.TContainerExampleTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.231 s - in es.maetd.bff.external.integration.TContainerExampleTest

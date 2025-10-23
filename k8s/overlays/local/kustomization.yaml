@@ -1,4 +1,4 @@
 resources:
-- ../../base
+  - ../../base
 patches:
-- path: configmap.yaml
+  - path: configmap.yaml
