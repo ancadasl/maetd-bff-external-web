@@ -28,10 +28,15 @@ maetd:
         FILES_MS:
           oauth-client-alias: internal_ms_oauth
           endpoints:
-            getFiles:
+            getFileList:
               url: ${CLIENT_REST_URL_FILE:http://maetd-ms-market-files:8080}/files
               method: get
               headers:
                 "Content-Type": "application/json"
+            uploadMultipleFiles:
+              url: ${CLIENT_REST_URL_FILE:http://maetd-ms-market-files:8080}/files/multi-upload
+              method: post
+              headers:
+                "Content-Type": "multipart/form-data"
 
 
