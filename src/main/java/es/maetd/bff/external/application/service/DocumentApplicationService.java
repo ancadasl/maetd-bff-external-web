@@ -1,6 +1,7 @@
 package es.maetd.bff.external.application.service;
 
 import es.maetd.bff.external.infrastructure.adapters.dto.*;
+import java.util.UUID;
 
 /**
  * Application service interface for managing and retrieving document-related information.
@@ -44,4 +45,19 @@ public interface DocumentApplicationService {
      * @throws RuntimeException if an unexpected error occurs during data retrieval
      */
     DocumentDataResponseDto getFiles(GetDocumentsIDTO idto);
+
+    /**
+     * Retrieves detailed information about a single document identified by its unique ID.
+     * <p>
+     * This method returns metadata and additional information related to the specified
+     * document. It is typically used in scenarios where only a single document needs to be
+     * fetched or displayed, such as detail views or validation steps.
+     * </p>
+     *
+     * @param fileId the unique identifier of the document to retrieve
+     * @return a {@link DocumentDto} containing metadata and document-related information
+     * @throws IllegalArgumentException if {@code fileId} is {@code null}
+     * @throws RuntimeException if the document cannot be retrieved or an unexpected error occurs
+     */
+    DocumentDto getDocumentData(UUID fileId);
 }

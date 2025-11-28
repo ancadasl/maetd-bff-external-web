@@ -1,6 +1,7 @@
 package es.maetd.bff.external.infrastructure.adapters.web.client;
 
 import es.maetd.bff.external.application.port.client.DocumentRepositoryPort;
+import es.maetd.bff.external.exception.DocumentServiceException;
 import es.maetd.bff.external.infrastructure.adapters.dto.DocumentDataResponseDto;
 import es.maetd.bff.external.infrastructure.adapters.dto.DocumentDto;
 import es.maetd.bff.external.infrastructure.adapters.dto.GetDocumentsIDTO;
@@ -16,8 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -25,6 +25,8 @@ import org.springframework.util.MultiValueMap;
 @Slf4j
 @Component
 public class DocumentRepositoryRestAdapter implements DocumentRepositoryPort {
+
+    private static final String FIELD_ID = "id";
 
     private static final String PAGE = "page";
 
@@ -38,9 +40,9 @@ public class DocumentRepositoryRestAdapter implements DocumentRepositoryPort {
 
     private static final String CSB = "csb";
 
-    private RestClient restClient;
+    private final RestClient restClient;
 
-    private DocumentInfrastructureMapper mapper;
+    private final DocumentInfrastructureMapper mapper;
 
     public DocumentRepositoryRestAdapter(
             @Qualifier("OAuth2RestClient") RestClient restClient, DocumentInfrastructureMapper mapper) {
@@ -49,7 +51,7 @@ public class DocumentRepositoryRestAdapter implements DocumentRepositoryPort {
     }
 
     @Override
-    public DocumentDataResponseDto getFiles(GetDocumentsIDTO idto) {
+    public DocumentDataResponseDto getDocuments(GetDocumentsIDTO idto) {
 
         MultiValueMap<String, String> queryParams = getStringStringMultiValueMap(idto);
 
@@ -68,7 +70,8 @@ public class DocumentRepositoryRestAdapter implements DocumentRepositoryPort {
                         .filter(r -> r.getStatusCode().is2xxSuccessful())
                         .map(HttpEntity::getBody)
                         .ifPresent(body -> {
-                            List<DocumentDto> documentsDtos = mapper.map(body.getFiles());
+                            List<DocumentDto> documentsDtos =
+                                    mapper.map(response.getBody().getFiles());
                             dto.setDocumentDtoList(documentsDtos);
                             dto.setCount(body.getCountFiles());
                         });
@@ -77,6 +80,47 @@ public class DocumentRepositoryRestAdapter implements DocumentRepositoryPort {
             log.error("Error calling getFileList  {}", rEx.getMessage());
         }
         return dto;
+    }
+
+    @Override
+    public DocumentDto getDocumentData(UUID fileId) {
+
+        log.info("Recovering file binary data with id : {}", fileId);
+
+        Map<String, String> pathParams = new HashMap<>();
+        pathParams.put(FIELD_ID, String.valueOf(fileId));
+
+        RequestIDTO<Void, byte[]> requestIDTO = RequestIDTO.<Void, byte[]>builder()
+                .systemKey(KeysNamestore.FILE_MICROSERVICE.SYSTEM_KEY)
+                .urlKey(KeysNamestore.FILE_MICROSERVICE.URL_KEY_GET_FILE_DATA)
+                .pathParams(pathParams)
+                .type(new ParameterizedTypeReference<>() {})
+                .build();
+
+        try {
+            ResponseEntity<byte[]> response = restClient.execute(requestIDTO);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+
+                log.info("File found with id = {}", fileId);
+
+                byte[] fileBytes = response.getBody();
+
+                if (fileBytes == null) {
+                    throw new DocumentServiceException("File not found in remote service");
+                }
+                String filename = response.getHeaders().getContentDisposition().getFilename();
+                return new DocumentDto(fileBytes, null, filename, null, null, null);
+            } else {
+                throw new DocumentServiceException(String.format(
+                        "File id = %s not found. Service = %s , endpoint = %s",
+                        fileId, requestIDTO.getSystemKey(), requestIDTO.getUrlKey()));
+            }
+        } catch (RestException ex) {
+            throw new DocumentServiceException(String.format(
+                    "REST resource not found. Service = %s , endpoint = %s",
+                    requestIDTO.getSystemKey(), requestIDTO.getUrlKey()));
+        }
     }
 
     private static @NotNull MultiValueMap<String, String> getStringStringMultiValueMap(GetDocumentsIDTO idto) {

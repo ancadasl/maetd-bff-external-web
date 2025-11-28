@@ -60,6 +60,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DocumentDataList'
+  /documents/{id}/data:
+    get:
+      operationId: getDocumentData
+      description: Servicio para obtener el binario de un documento de web externa
+      parameters:
+        - $ref: '#/components/parameters/documentIdParam'
+      responses:
+        200:
+          description: Binario del fichero
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/FileBinaryData'
 components:
   schemas:
     DocumentDataList:
@@ -119,3 +132,17 @@ components:
         csb:
           type: string
           description: Código csb del creador, para web externa creadores indentifcamos al creador que sube el documento
+    FileBinaryData:
+      type: string
+      format: binary
+      description: Binario pdf
+  parameters:
+    documentIdParam:
+      name: id
+      in: path
+      description: Parametro identificador de documento
+      required: true
+      allowEmptyValue: false
+      schema:
+        type: string
+        format: 'uuid'
