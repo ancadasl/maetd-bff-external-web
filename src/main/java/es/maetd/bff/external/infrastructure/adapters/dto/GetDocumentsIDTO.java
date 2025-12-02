@@ -21,4 +21,6 @@ public class GetDocumentsIDTO {
     private String csb;
 
     private LocalDate creationDate;
+
+    private String language;
 }

@@ -53,6 +53,15 @@ paths:
           schema:
             type: string
             nullable: true
+        - name: language
+          in: query
+          description: Documentos por lenguaje
+          schema:
+            type: string
+            nullable: true
+            enum:
+              - ES
+              - EN
       responses:
         200:
           description: Listado de documentos

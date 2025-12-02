@@ -61,7 +61,8 @@ public class DocumentControllerWebAdapter implements DocumentsApi {
             Optional<Integer> size,
             Optional<LocalDate> creationDate,
             Optional<String> category,
-            Optional<String> csb) {
+            Optional<String> csb,
+            Optional<String> language) {
 
         GetDocumentsIDTO idto = new GetDocumentsIDTO();
         idto.setPage(page.orElse(null));
@@ -69,6 +70,7 @@ public class DocumentControllerWebAdapter implements DocumentsApi {
         idto.setCategory(getCategory(category.orElse(null)));
         idto.setCsb(csb.orElse(null));
         idto.setCreationDate(creationDate.orElse(null));
+        idto.setLanguage(language.orElse(null));
 
         DocumentDataListWDTO response = new DocumentDataListWDTO();
         DocumentDataResponseDto dto = service.getFiles(idto);

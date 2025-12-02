@@ -38,5 +38,17 @@ maetd:
               method: post
               headers:
                 "Content-Type": "multipart/form-data"
+            getFileData:
+              url: ${CLIENT_REST_URL_FILE:http://maetd-ms-market-files:8080}/files/{id}/data
+              method: get
+              description: Servicio para obtener el binario de un fichero
+              headers:
+                "Content-Type": "application/octet-stream"
+              path-parameters:
+                - name: id
+                  description: ID del fichero
+                  required: true
+                  schema:
+                    type: string
 
 

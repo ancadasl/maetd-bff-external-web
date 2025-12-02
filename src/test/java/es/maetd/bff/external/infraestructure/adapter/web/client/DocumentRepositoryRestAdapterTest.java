@@ -1,5 +1,8 @@
 package es.maetd.bff.external.infraestructure.adapter.web.client;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 import es.maetd.bff.external.exception.DocumentServiceException;
 import es.maetd.bff.external.infrastructure.adapters.dto.DocumentDataResponseDto;
 import es.maetd.bff.external.infrastructure.adapters.dto.DocumentDto;
@@ -15,6 +18,8 @@ import es.maetd.marketcreators.clients.rest.service.base.RestClient;
 import es.maetd.marketcreators.clients.rest.service.dto.input.RequestIDTO;
 import es.maetd.marketcreators.ddd.core.events.domains.files.CategoryType;
 import es.maetd.marketcreators.ddd.core.events.domains.files.OriginSystemType;
+import java.util.List;
+import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -26,12 +31,6 @@ import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
-import java.util.UUID;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class DocumentRepositoryRestAdapterTest {
@@ -56,8 +55,6 @@ class DocumentRepositoryRestAdapterTest {
         mapperImpl = new DocumentInfrastructureMapperImpl();
     }
 
-
-
     @Test
     void getFileClient_returnsOK() {
         // Given
@@ -68,13 +65,11 @@ class DocumentRepositoryRestAdapterTest {
         fileResponse.setFiles(list);
         fileResponse.setCountFiles(1);
 
-        ResponseEntity<FileResponse> response =
-                new ResponseEntity<>(fileResponse, HttpStatus.OK);
+        ResponseEntity<FileResponse> response = new ResponseEntity<>(fileResponse, HttpStatus.OK);
 
         // When
         when(restClient.execute(any(RequestIDTO.class))).thenReturn(response);
         when(mapper.map(any(FileList.class))).thenReturn(mapperImpl.map(list));
-
 
         GetDocumentsIDTO idtoMock = new GetDocumentsIDTO();
 
@@ -85,11 +80,10 @@ class DocumentRepositoryRestAdapterTest {
         DocumentDataResponseDto result = adapter.getDocuments(idtoMock);
 
         // Then
-        Assertions.assertEquals(file.getFilename(), result.getDocumentDtoList().get(0).getDocumentName());
-
         Assertions.assertEquals(
-                result.getDocumentDtoList().get(0).getDocumentName(),
-                file.getFilename());
+                file.getFilename(), result.getDocumentDtoList().get(0).getDocumentName());
+
+        Assertions.assertEquals(result.getDocumentDtoList().get(0).getDocumentName(), file.getFilename());
 
         verify(restClient, times(1)).execute(any(RequestIDTO.class));
         verify(mapper, times(1)).map(any(FileList.class));
@@ -103,11 +97,9 @@ class DocumentRepositoryRestAdapterTest {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentDisposition(
-                ContentDisposition.attachment().filename("fileTest.txt").build()
-        );
+                ContentDisposition.attachment().filename("fileTest.txt").build());
 
-        ResponseEntity<byte[]> response =
-                new ResponseEntity<>(bytes, headers, HttpStatus.OK);
+        ResponseEntity<byte[]> response = new ResponseEntity<>(bytes, headers, HttpStatus.OK);
 
         when(restClient.execute(any(RequestIDTO.class))).thenReturn(response);
 
@@ -127,8 +119,7 @@ class DocumentRepositoryRestAdapterTest {
         // Given
         UUID fileId = UUID.randomUUID();
 
-        ResponseEntity<byte[]> response =
-                new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        ResponseEntity<byte[]> response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
         when(restClient.execute(any(RequestIDTO.class))).thenReturn(response);
 
@@ -137,26 +128,22 @@ class DocumentRepositoryRestAdapterTest {
         verify(restClient, times(1)).execute(any());
     }
 
-
-
     private FileData createDummyDocumentFileData() {
 
         FileData file = new FileData();
         file.setId(UUID.randomUUID());
         file.setFilename("fileTest.txt");
-        file.setExternalWebFileData(createExternalWebFileData() );
-        file.setOriginSystem( OriginSystemType.EXTERNAL_WEB.name());
+        file.setExternalWebFileData(createExternalWebFileData());
+        file.setOriginSystem(OriginSystemType.EXTERNAL_WEB.name());
         return file;
     }
 
     private static ExternalWebFileData createExternalWebFileData() {
-        ExternalWebFileData  data = new ExternalWebFileData();
+        ExternalWebFileData data = new ExternalWebFileData();
         data.setActive(true);
         data.setCsb(CSB);
         data.setCategoryType(ExternalWebFileData.CategoryTypeEnum.ACTAS_BOND);
         data.setDescription(DESCRIPCION);
         return data;
     }
-
 }
-

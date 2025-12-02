@@ -40,6 +40,8 @@ public class DocumentRepositoryRestAdapter implements DocumentRepositoryPort {
 
     private static final String CSB = "csb";
 
+    private static final String LANGUAGE = "language";
+
     private final RestClient restClient;
 
     private final DocumentInfrastructureMapper mapper;
@@ -137,6 +139,9 @@ public class DocumentRepositoryRestAdapter implements DocumentRepositoryPort {
         }
         if (idto.getCsb() != null) {
             queryParams.add(CSB, idto.getCsb());
+        }
+        if (idto.getLanguage() != null) {
+            queryParams.add(LANGUAGE, idto.getLanguage());
         }
         return queryParams;
     }
