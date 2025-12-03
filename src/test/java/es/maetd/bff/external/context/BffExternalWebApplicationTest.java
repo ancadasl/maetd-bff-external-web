@@ -2,6 +2,7 @@ package es.maetd.bff.external.context;
 
 import es.maetd.marketcreators.common.security.jwks.validator.spring.conf.props.SpringJwtConfigurationProps;
 import es.maetd.marketcreators.common.test.containers.ContainerInit;
+import es.maetd.marketcreators.common.test.containers.SqlServerContainerInit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest(properties = "spring.main.allow-bean-definition-overriding=true")
@@ -35,5 +37,36 @@ class BffExternalWebApplicationTest {
         Assertions.assertNotNull(jwtConfigurationProps.getFilter().getEnabled());
         Assertions.assertNotNull(jwtConfigurationProps.getFilter().getJwksUrl());
         Assertions.assertNotNull(jwtConfigurationProps.getFilter().getEnabled());
+    }
+}
+
+@SpringBootTest(properties = "spring.main.allow-bean-definition-overriding=true")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ContextConfiguration(initializers = SqlServerContainerInit.class)
+@TestPropertySource(
+        properties = {
+            "spring.datasource.datamart.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver",
+            "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.SQLServer2012Dialect"
+        })
+@Testcontainers(disabledWithoutDocker = true)
+class BffExternalWebApplicationqlServerTest {
+
+    @Autowired
+    private SpringJwtConfigurationProps jwtConfigurationProps;
+
+    @Order(1)
+    @Test
+    void contextLoads() {
+        // Test generated from archetype
+    }
+
+    @Order(2)
+    @Test
+    void whenContextLoadsThenRestClientsShouldBeInitialized() {
+
+        Assertions.assertNotNull(jwtConfigurationProps.getFilter());
+        Assertions.assertNotNull(jwtConfigurationProps.getSecurityHeaderName());
+        Assertions.assertNotNull(jwtConfigurationProps.getFilter().getEnabled());
+        Assertions.assertNotNull(jwtConfigurationProps.getFilter().getJwksUrl());
     }
 }
