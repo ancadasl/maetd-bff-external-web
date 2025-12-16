@@ -1,0 +1,85 @@
+pipeline {
+    agent {
+        label 'jenkins-agent'
+    }
+    environment {
+        SONAR_HOME = tool 'sonar-scanner'
+        SONAR_OPTS = "${'-Dsonar.branch.name=' + env.BRANCH_NAME + ' -Dsonar.branch.target=develop'}"
+        CLAIR_URL = 'http://clair-devsecops-test.apps.ocp2.tesoro.es/'
+        CLAIR_THRESHOLD = 'High'
+        CLAIR_MAX_VULNERABILITIES = '10'
+        DOCKER_REPO = 'nexus-registry-devsecops-test.apps.ocp2.tesoro.es'
+        APP_NAME = 'maetd-ms-market-blind'
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        disableConcurrentBuilds()
+    }
+    stages {
+        stage('Initialize variables') {
+            steps{
+                configFileProvider([configFile(fileId: '3a1575eb-889a-4fa9-8987-7a6387aab8e3', variable: 'SETTINGS')]) {
+                    script {
+                        def props = readProperties file: "$SETTINGS"
+                        DATABASE_URL = props.databaseUrl
+                        DATABASE_USER = props.databaseUser
+                        DATABASE_DRIVER_CLASS_NAME = props.databaseDriverClassName
+                        DATABASE_TYPE_NAME = props.databaseTypename
+                        DATABASE_OPERATION = props.databaseOperation
+                        VALIDATOR_TOKEN = props.validatorToken
+                        JWKS_URL_TOKEN  = props.jwksUrlToken
+                        TOKEN_URL = props.tokenUrl
+                        CLIENT_ID = props.clientId
+                        CLIENT_SECRET = props.clientSecret
+                        CLIENT_REST_URL_CREATOR = props.creatorsClientRestUrl
+                        CLIENT_REST_URL_FILE = props.fileClientRestUrl
+                     }
+                }
+            }
+        }
+        stage('deploy') {
+            steps {
+                container('jenkins-agent') {
+                    sh 'oc whoami'
+                    sh 'oc project creadores-mercado'
+                    sh 'skaffold version'
+                    sh 'PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)'
+                    sh 'PROJECT_NAME=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)'
+                    sh 'DOCKER_IMAGE_URL=nexus-registry-devsecops-test.apps.ocp2.tesoro.es/$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout):$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) yq -i \'.spec.template.spec.containers[0].image = strenv(DOCKER_IMAGE_URL)\' k8s/base/deployment.yaml'
+                    sh 'cat k8s/base/deployment.yaml'
+                    sh "yq -i '.data.MAETD_DATABASE_URL_BLIND_MARKET = \"${DATABASE_URL}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.DATABASE_USERNAME = \"${DATABASE_USER}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.DATABASE_DRIVER_CLASS_NAME = \"${DATABASE_DRIVER_CLASS_NAME}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.DATABASE_TYPE_NAME = \"${DATABASE_TYPE_NAME}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.DATABASE_OPERATION = \"${DATABASE_OPERATION}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.VALIDATOR_TOKEN = \"${VALIDATOR_TOKEN}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.JWKS_URL_TOKEN = \"${JWKS_URL_TOKEN}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.CLIENT_REST_URL_CREATOR = \"${CLIENT_REST_URL_CREATOR}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.CLIENT_REST_URL_FILE = \"${CLIENT_REST_URL_FILE}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.TOKEN_URL = \"${TOKEN_URL}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.CLIENT_ID = \"${CLIENT_ID}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.CLIENT_SECRET = \"${CLIENT_SECRET}\"' k8s/base/configmap.yaml"
+                    sh 'cat k8s/base/configmap.yaml'
+                    sh 'rm -f k8s/base/ingress.yaml'
+//                    sh 'skaffold deploy --tag $(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)'
+                    sh 'oc apply -f k8s/base/configmap.yaml'
+                    sh 'oc apply -f k8s/base/deployment.yaml'
+                }
+            }
+        }
+    }
+    post {
+        always {
+            publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '', reportFiles: 'clair-report/index.html', reportName: 'Clair', reportTitles: 'Clair Report'])
+        }
+        success {
+            echo 'Everything is OK'
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+    }
+}

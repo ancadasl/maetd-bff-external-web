@@ -26,6 +26,21 @@ spec:
           envFrom:
             - configMapRef:
                 name: maetd-bff-external-web-configmap
+          env:
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: databasepass
+                  name: maetd-bff-external-web-secret
+                  namespace: external-web
+          volumeMounts:
+            - mountPath: /mnt/maetd
+              name: maetdstorage
           resources:
             limits:
               memory: "786Mi"
+      volumes:
+        - name: maetdstorage
+          persistentVolumeClaim:
+            claimName: pvc-files-bde
+            readOnly: true

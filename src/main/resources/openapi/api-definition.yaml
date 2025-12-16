@@ -82,6 +82,105 @@ paths:
             application/octet-stream:
               schema:
                 $ref: '#/components/schemas/FileBinaryData'
+  /evaluations:
+    get:
+      operationId: getEvaluations
+      description: Servicio para obtener un listado de Evaluaciones por producto
+      parameters:
+        - name: productType
+          in: query
+          description: Filtro por categoria de documento (web externa creadores)
+          schema:
+            type: string
+            enum:
+              - LETTER
+              - BOND
+        - name: csb
+          in: query
+          description: Para filtrar evaluaciones por creador en web externa
+          schema:
+            type: string
+            nullable: true
+        - name: month
+          in: query
+          description: Mes de la evaluación
+          schema:
+            type: integer
+            format: int32
+            nullable: true
+        - name: year
+          in: query
+          description: Año de la evaluación
+          schema:
+            type: integer
+            format: int32
+            nullable: true
+        - name: status
+          in: query
+          description: Estados de la evaluación
+          required: false
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - FINISH_PRE_FINISHED
+                - FINISH_DRAFT_FINISHED
+                - FINISH_CLOSED_FINISHED
+                - FINISH_CONSOLIDATED_FINISHED
+      responses:
+        200:
+          description: Listado de evaluaciones
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluationDataList'
+  /syndicated-issues:
+    get:
+      operationId: getSyndicatedIssues
+      description: Servicio para obtener un listado de syndicated issues
+      parameters:
+        - name: csb
+          in: query
+          description: Para filtrar syndicated issues por creador en web externa
+          schema:
+            type: string
+            nullable: true
+        - name: month
+          in: query
+          description: Busqueda por Mes
+          schema:
+            type: integer
+            format: int32
+            nullable: true
+        - name: year
+          in: query
+          description: Busqueda por Año
+          schema:
+            type: integer
+            format: int32
+            nullable: true
+      responses:
+        200:
+          description: Listado de syndicate issues
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyndicatedIssuesDataList'
+  /market-creators:
+    get:
+      operationId: getMarketCreators
+      description: Servicio para obtener un listado de creadores de mercado
+      responses:
+        200:
+          description: Listado de creadores de mercado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MarketCreatorData'
 components:
   schemas:
     DocumentDataList:
@@ -141,10 +240,111 @@ components:
         csb:
           type: string
           description: Código csb del creador, para web externa creadores indentifcamos al creador que sube el documento
+    EvaluationDataList:
+      type: object
+      description: Listado de evaluaciones
+      properties:
+        evaluations:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvaluationData'
+    EvaluationData:
+      type: object
+      properties:
+        evaluationId:
+          type: integer
+          format: int64
+        status:
+          type: string
+        csb:
+          type: string
+        year:
+          type: integer
+        month:
+          type: string
+        monthNumeric:
+          type: integer
+        jointMonthly:
+          type: number
+          format: double
+        cumulative:
+          type: number
+          format: double
+        letter:
+          type: string
+        bonds:
+          type: number
+          format: double
+        suscription:
+          type: number
+          format: double
+        quoting:
+          type: number
+          format: double
+        trading:
+          type: number
+          format: double
+        electronic:
+          type: number
+          format: double
+        tier:
+          type: string
+        clients:
+          type: number
+          format: double
+        strips:
+          type: number
+          format: double
+        qualitative:
+          type: number
+          format: double
+        secondRound:
+          type: number
+          format: double
+        productType:
+          type: string
+          description: Tipo de Producto
+          enum:
+            - LETTER
+            - BOND
+    SyndicatedIssuesDataList:
+      type: object
+      description: Listado de syndicated issues
+      properties:
+        syndicatedIssues:
+          type: array
+          items:
+            $ref: '#/components/schemas/SyndicatedIssuesData'
+    SyndicatedIssuesData:
+      type: object
+      properties:
+        csb:
+          type: string
+        year:
+          type: integer
+        month:
+          type: integer
+        letter:
+          type: integer
+        bonds:
+          type: integer
     FileBinaryData:
       type: string
       format: binary
       description: Binario pdf
+    MarketCreatorData:
+      type: object
+      description: Datos de los creadores de mercado
+      properties:
+        name:
+          type: string
+          description: Nombre del creador de mercado
+          example: 1
+        csb:
+          type: string
+          description: Código CSB del creador
+          example: 3880
+
   parameters:
     documentIdParam:
       name: id

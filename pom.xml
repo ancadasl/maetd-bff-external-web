@@ -69,7 +69,7 @@
         <dependency>
             <groupId>es.maetd.marketcreators</groupId>
             <artifactId>maetd-commons-conventions</artifactId>
-            <version>0.0.29</version>
+            <version>0.0.30</version>
         </dependency>
 
         <dependency>

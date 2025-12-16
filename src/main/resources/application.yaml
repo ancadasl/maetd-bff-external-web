@@ -1,6 +1,22 @@
 server:
   port: 8080
 
+spring:
+  datasource:
+    url: ${MAETD_DATABASE_URL_BFF_EXTERNAL_WEB:jdbc:postgresql://localhost:5432/maetd_ms_bff_external_web}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    driver-class-name: ${DATABASE_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    hikari:
+      maximum-pool-size: 5
+      schema: ${DATABASE_DEFAULT_SCHEMA:public}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${DATABASE_OPERATION:validate}
+    generate-ddl: true
+    show-sql: true
+
 maetd:
   jwt:
     jwks-validator:
@@ -12,24 +28,6 @@ maetd:
           - /v3/api-docs
           - /health
         jwksUrl: ${JWKS_URL_TOKEN:http://maetd-dev.zenerconsulting.com:31036/realms/maetd/protocol/openid-connect/certs}
-
-spring:
-  datasource:
-    datamart:
-      hikari:
-        maximum-pool-size: 5
-        schema: ${MAETD_DATABASE_EXTERNAL_SCHEMA:public}
-      driver-class-name: ${DATABASE_DRIVER_CLASS_NAME:org.postgresql.Driver}
-      url: ${MAETD_DATABASE_URL_HRF:jdbc:postgresql://maetd-zener-dev-db-postgresql-do-user-18010495-0.j.db.ondigitalocean.com:25061/maetd_ms_general_db_pool?escapeSyntaxCallMode=callIfNoReturn}
-      username: ${DATABASE_USERNAME}
-      password: ${DATABASE_PASSWORD}
-
-    jpa:
-      hibernate:
-        ddl-auto: ${DATABASE_OPERATION:validate}
-      generate-ddl: true
-      show-sql: true
-
   clients:
     rest:
       oauth2Engine:
@@ -67,5 +65,13 @@ spring:
                   required: true
                   schema:
                     type: string
+        CREATORS_MS:
+          oauth-client-alias: internal_ms_oauth
+          endpoints:
+            getCreators:
+              url: ${CLIENT_REST_URL_CREATOR:http://maetd-ms-market-creators:8080}/market-creators
+              method: get
+              headers:
+                "Content-Type": "application/json"
 
 
