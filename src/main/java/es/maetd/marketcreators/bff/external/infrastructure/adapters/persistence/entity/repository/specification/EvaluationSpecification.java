@@ -15,7 +15,7 @@ public class EvaluationSpecification implements Specification<EvaluationEntity> 
 
     private final ProductType product;
 
-    private final Long csb;
+    private final String csb;
 
     private final Integer month;
 
@@ -24,7 +24,7 @@ public class EvaluationSpecification implements Specification<EvaluationEntity> 
     private List<EvaluationStatus> status;
 
     public EvaluationSpecification(
-            ProductType productType, Long csb, Integer month, Integer year, List<EvaluationStatus> status) {
+            ProductType productType, String csb, Integer month, Integer year, List<EvaluationStatus> status) {
 
         this.product = productType;
         this.csb = csb;
@@ -56,6 +56,7 @@ public class EvaluationSpecification implements Specification<EvaluationEntity> 
         if (status != null && !status.isEmpty()) {
             predicates.add(root.get("status").in(status));
         }
+
         return predicates.isEmpty() ? builder.conjunction() : builder.and(predicates.toArray(new Predicate[0]));
     }
 }

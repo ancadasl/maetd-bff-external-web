@@ -2,7 +2,6 @@ package es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence
 
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.EvaluationStatus;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.ProductType;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.converter.ProductTypeConverter;
 import java.io.Serial;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -12,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "v_vista_creadores")
+@Table(name = "v_evaluations")
 public class EvaluationEntity implements Serializable {
 
     @Serial
@@ -29,7 +28,7 @@ public class EvaluationEntity implements Serializable {
     private EvaluationStatus status;
 
     @Column(name = "csb")
-    private Long csb;
+    private String csb;
 
     @Column(name = "year")
     private Long year;
@@ -80,6 +79,6 @@ public class EvaluationEntity implements Serializable {
     private Double secondRound;
 
     @Column(name = "product_type", nullable = false)
-    @Convert(converter = ProductTypeConverter.class)
+    @Enumerated(EnumType.STRING)
     private ProductType productType;
 }

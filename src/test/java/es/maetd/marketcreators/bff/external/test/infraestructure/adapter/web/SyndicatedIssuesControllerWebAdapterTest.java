@@ -77,7 +77,7 @@ class SyndicatedIssuesControllerWebAdapterTest {
 
         idtoMock.setYear(year.orElse(null));
         idtoMock.setMonth(month.orElse(null));
-        csb.ifPresent(value -> idtoMock.setCsb(Long.valueOf(value)));
+        idtoMock.setCsb(csb.orElse(null));
         SyndicatedIssuesDto dto = createDummySyndicatedIssuesDto();
         SyndicatedIssuesResponseDto resSyndicatedIssues =
                 SyndicatedIssuesResponseDto.builder().list(List.of(dto)).build();
@@ -107,7 +107,7 @@ class SyndicatedIssuesControllerWebAdapterTest {
         dto.setYear(2023L);
         dto.setMonth(1L);
         dto.setLetter(10L);
-        dto.setBonds(5L);
+        dto.setBonds(5);
         return dto;
     }
 }

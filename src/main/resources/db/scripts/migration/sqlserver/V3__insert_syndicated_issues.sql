@@ -1,4 +1,4 @@
-INSERT INTO v_vista_syndicated_issues (id, csb, year, month, li, bonds)
+INSERT INTO v_syndicated_issues (id, csb, year, month, li, bonds)
 VALUES
 (33, 128, 2022, 'enero',        21, 44),
 (34, 128, 2022, 'febrero',      77, 68),

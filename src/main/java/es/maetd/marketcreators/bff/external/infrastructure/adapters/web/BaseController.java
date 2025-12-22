@@ -21,7 +21,7 @@ public abstract class BaseController {
 
         String userCsb = getUserCsb(context).orElse(null);
 
-        if (!hasRole(context, Role.IS_ADMIN) && csbFromRequest == null || !csbFromRequest.equals(userCsb)) {
+        if (!hasRole(context, Role.IS_ADMIN) && (csbFromRequest == null || !csbFromRequest.equals(userCsb))) {
             log.warn(
                     "Forbidden CSB access: user={}, requestedCsb={}, userCsb={}",
                     context.getUsername(),

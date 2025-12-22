@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public enum Role {
-    IS_ADMIN("isAdmin"),
+    IS_ADMIN("admin_eval_external_web"),
     EVALUATION_ACCESS("evaluation_access");
 
     private final String value;

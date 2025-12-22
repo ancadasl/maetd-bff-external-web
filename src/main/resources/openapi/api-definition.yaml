@@ -89,7 +89,7 @@ paths:
       parameters:
         - name: productType
           in: query
-          description: Filtro por categoria de documento (web externa creadores)
+          description: Filtro por tipo de producto
           schema:
             type: string
             enum:
@@ -136,6 +136,93 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EvaluationDataList'
+  /auctions:
+    get:
+      operationId: getAuctions
+      description: Servicio para obtener un listado de subasta por producto
+      parameters:
+        - name: productType
+          in: query
+          description: Filtro tipo de producto
+          schema:
+            type: string
+            nullable: false
+            enum:
+              - LETTER
+              - BOND
+        - name: csb
+          in: query
+          description: Para filtrar subastas por creador en web externa
+          schema:
+            type: string
+            nullable: false
+        - name: month
+          in: query
+          description: Mes de la subasta
+          schema:
+            type: integer
+            format: int32
+            nullable: true
+        - name: year
+          in: query
+          description: Año de la subasta
+          schema:
+            type: integer
+            format: int32
+            nullable: true
+      responses:
+        200:
+          description: Listado de subastas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuctionsDataGroup'
+  /evaluations/joint:
+    get:
+      operationId: getEvaluationsJoint
+      description: Servicio para obtener un listado de Evaluaciones conjunta Letras y Bonos
+      parameters:
+        - name: csb
+          in: query
+          description: Para filtrar evaluaciones conjunta Letras y Bonos por creador en web externa
+          schema:
+            type: string
+            nullable: true
+        - name: month
+          in: query
+          description: Mes de la evaluación
+          schema:
+            type: integer
+            format: int32
+            nullable: true
+        - name: year
+          in: query
+          description: Año de la evaluación
+          schema:
+            type: integer
+            format: int32
+            nullable: true
+        - name: status
+          in: query
+          description: Estados de la evaluación
+          required: false
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - FINISH_PRE_FINISHED
+                - FINISH_DRAFT_FINISHED
+                - FINISH_CLOSED_FINISHED
+                - FINISH_CONSOLIDATED_FINISHED
+      responses:
+        200:
+          description: Listado de evaluaciones conjunta Letras y Bonos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluationJoinDataList'
   /syndicated-issues:
     get:
       operationId: getSyndicatedIssues
@@ -248,6 +335,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EvaluationData'
+    EvaluationJoinDataList:
+      type: object
+      description: Listado de evaluaciones conjunta Letras y Bonos
+      properties:
+        evaluationsJoint:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvaluationJointData'
+    AuctionsDataGroup:
+      type: object
+      description: Primario y secundario subasta
+      properties:
+        primaryAuctions:
+          type: object
+          $ref: '#/components/schemas/AuctionData'
+        secondaryAuctions:
+          type: object
+          $ref: '#/components/schemas/AuctionData'
     EvaluationData:
       type: object
       properties:
@@ -275,7 +380,7 @@ components:
         bonds:
           type: number
           format: double
-        suscription:
+        subscription:
           type: number
           format: double
         quoting:
@@ -307,6 +412,53 @@ components:
           enum:
             - LETTER
             - BOND
+    EvaluationJointData:
+      type: object
+      properties:
+        status:
+          type: string
+        csb:
+          type: string
+        year:
+          type: integer
+        monthNumeric:
+          type: integer
+        jointMonthly:
+          type: number
+          format: double
+        cumulative:
+          type: number
+          format: double
+        letter:
+          type: string
+        bonds:
+          type: number
+          format: double
+    AuctionData:
+        type: object
+        properties:
+          csb:
+            type: string
+          year:
+            type: integer
+          monthNumeric:
+            type: integer
+          productType:
+            type: string
+            description: Tipo de Producto
+            enum:
+              - LETTER
+              - BOND
+          computable_sale:
+            type: integer
+          total_sale:
+            type: integer
+          penalty:
+            type: boolean
+          basket:
+            type: number
+            format: double
+            nullable: true
     SyndicatedIssuesDataList:
       type: object
       description: Listado de syndicated issues

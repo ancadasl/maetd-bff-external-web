@@ -88,7 +88,7 @@ class EvaluationControllerWebAdapterTest {
 
         idtoMock.setYear(year.orElse(null));
         idtoMock.setMonth(month.orElse(null));
-        csb.ifPresent(value -> idtoMock.setCsb(Long.valueOf(value)));
+        idtoMock.setCsb(csb.orElse(null));
         EvaluationDto dto = createDummyEvaluationDataDto();
         EvaluationResponseDto resEvaluation =
                 EvaluationResponseDto.builder().list(List.of(dto)).build();

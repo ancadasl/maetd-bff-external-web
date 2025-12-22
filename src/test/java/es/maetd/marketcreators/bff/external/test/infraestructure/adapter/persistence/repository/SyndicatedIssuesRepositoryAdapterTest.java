@@ -73,11 +73,11 @@ class SyndicatedIssuesRepositoryAdapterTest {
     public static SyndicatedIssuesEntity createDummySyndicatedIssuesEntity() {
         SyndicatedIssuesEntity dto = new SyndicatedIssuesEntity();
 
-        dto.setCsb(128L);
-        dto.setYear(2023L);
+        dto.setCsb("1280");
+        dto.setYear(2023);
         dto.setMonth("NOVIEMBRE");
         dto.setLi("10");
-        dto.setBonds(5L);
+        dto.setBonds(5);
         return dto;
     }
 }

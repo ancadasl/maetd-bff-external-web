@@ -14,5 +14,5 @@ public class SyndicatedIssuesDto implements Serializable {
 
     private Long letter;
 
-    private Long bonds;
+    private Integer bonds;
 }

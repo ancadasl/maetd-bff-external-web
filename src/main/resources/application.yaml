@@ -36,7 +36,7 @@ maetd:
           - clientAlias: internal_ms_oauth
             tokenUrl: ${TOKEN_URL:http://maetd-dev.zenerconsulting.com:31036/realms/maetd/protocol/openid-connect/token}
             clientId: ${CLIENT_ID:ms-internal-rest-integrations}
-            clientSecret: ${CLIENT_SECRET:p98Z7GuGxO3OTz99OBTwKAyaYKioGEgy}
+            clientSecret: ${CLIENT_SECRET:YJSOSsdNOfbW4bKq97egPhVIOHGBnSNJ}
             scopes:
               - openid
       systems:

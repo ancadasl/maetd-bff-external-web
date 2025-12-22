@@ -29,7 +29,7 @@ class EvaluationRepositoryAdapterTest {
 
     private static final int MONTH = 2;
 
-    private static final long CSB = 125L;
+    private static final String CSB = "0125";
 
     @InjectMocks
     EvaluationRepositoryAdapter adapter;

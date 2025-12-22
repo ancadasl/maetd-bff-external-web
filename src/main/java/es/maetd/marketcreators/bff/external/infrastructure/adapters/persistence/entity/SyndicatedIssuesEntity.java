@@ -9,20 +9,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "v_vista_syndicated_issues")
+@Table(name = "v_syndicated_issues")
 public class SyndicatedIssuesEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    private Long id;
+    private Integer id;
 
     @Column(name = "csb")
-    private Long csb;
+    private String csb;
 
     @Column(name = "year")
-    private Long year;
+    private Integer year;
 
     @Column(name = "month")
     private String month;
@@ -31,5 +31,5 @@ public class SyndicatedIssuesEntity implements Serializable {
     private String li;
 
     @Column(name = "bonds")
-    private Long bonds;
+    private Integer bonds;
 }

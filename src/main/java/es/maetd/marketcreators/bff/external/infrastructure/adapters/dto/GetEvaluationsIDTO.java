@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GetEvaluationsIDTO {
 
-    private Long csb;
+    private String csb;
 
     private Integer month;
 

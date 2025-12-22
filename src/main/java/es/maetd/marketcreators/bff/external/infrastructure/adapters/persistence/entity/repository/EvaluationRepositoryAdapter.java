@@ -2,6 +2,7 @@ package es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence
 
 import es.maetd.marketcreators.bff.external.application.port.EvaluationRepositoryPort;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationJointDto;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetEvaluationsIDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.EvaluationEntity;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.specification.EvaluationSpecification;
@@ -22,6 +23,13 @@ public class EvaluationRepositoryAdapter implements EvaluationRepositoryPort {
     public List<EvaluationDto> getEvaluations(GetEvaluationsIDTO idto) {
         Specification<EvaluationEntity> filters = setFilters(idto);
         return repository.findAll(filters).stream().map(mapper::map).toList();
+    }
+
+    @Override
+    public List<EvaluationJointDto> getEvaluationsJoint(GetEvaluationsIDTO idto) {
+        Specification<EvaluationEntity> filters = setFilters(idto);
+        List<EvaluationEntity> entities = repository.findAll(filters);
+        return mapper.mapAndGroupByYearAndMonth(entities);
     }
 
     private Specification<EvaluationEntity> setFilters(GetEvaluationsIDTO idto) {
