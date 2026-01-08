@@ -8,7 +8,7 @@ import static org.mockito.Mockito.*;
 import es.maetd.marketcreators.bff.external.application.mappers.MarketCreatorApplicationMapper;
 import es.maetd.marketcreators.bff.external.application.mappers.MarketCreatorApplicationMapperImpl;
 import es.maetd.marketcreators.bff.external.application.service.MarketCreatorApplicationService;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.web.MarketCreatorsControllerWebAdapter;
 import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,7 +46,7 @@ class MarketCreatorsControllerWebAdapterTest {
     @Test
     void getMarketCreatorsShould_return_a_list_of_creators() {
         // Given
-        List<EntityDto> list = List.of(createDummyEntityModel());
+        List<EntityDTO> list = List.of(createDummyEntityModel());
         // When
         when(service.getMarketCreators()).thenReturn(list);
 
@@ -61,8 +61,8 @@ class MarketCreatorsControllerWebAdapterTest {
                 () -> verify(mapper, times(1)).mapAsList(anyList()));
     }
 
-    private EntityDto createDummyEntityModel() {
-        EntityDto model = new EntityDto();
+    private EntityDTO createDummyEntityModel() {
+        EntityDTO model = new EntityDTO();
         model.setName(MARKET_CREATOR1_DESCRIPTION);
         model.setCsb(MARKET_CREATOR1_CSB.toString());
         return model;

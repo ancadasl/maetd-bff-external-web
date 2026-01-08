@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetEvaluationsIDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.EvaluationStatus;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.ProductType;
@@ -51,19 +51,16 @@ class EvaluationRepositoryAdapterTest {
     void getEvaluationsShould_return_a_list_of_evaluations() {
 
         // Given
-        EvaluationDto model = createDummyEvaluationDataDto();
+        EvaluationDTO model = createDummyEvaluationDataDto();
 
         // When
         when(repository.findAll(any(Specification.class))).thenReturn(List.of(mapperImpl.map(model)));
         when(mapper.map(any(EvaluationEntity.class))).thenReturn(mapperImpl.map(mapperImpl.map(model)));
 
-        GetEvaluationsIDTO idtoMock = new GetEvaluationsIDTO();
+        GetEvaluationsIDTO idtoMock =
+                GetEvaluationsIDTO.builder().year(YEAR).month(MONTH).csb(CSB).build();
 
-        idtoMock.setYear(YEAR);
-        idtoMock.setMonth(MONTH);
-        idtoMock.setCsb(CSB);
-
-        List<EvaluationDto> result = adapter.getEvaluations(idtoMock);
+        List<EvaluationDTO> result = adapter.getEvaluations(idtoMock);
 
         // Then
         assertEquals(model.getCsb(), result.get(0).getCsb());
@@ -72,8 +69,8 @@ class EvaluationRepositoryAdapterTest {
         verify(mapper, times(1)).map(any(EvaluationEntity.class));
     }
 
-    public static EvaluationDto createDummyEvaluationDataDto() {
-        EvaluationDto dto = new EvaluationDto();
+    public static EvaluationDTO createDummyEvaluationDataDto() {
+        EvaluationDTO dto = new EvaluationDTO();
 
         dto.setEvaluationId(1L);
         dto.setStatus(EvaluationStatus.FINISH_CONSOLIDATED_FINISHED);

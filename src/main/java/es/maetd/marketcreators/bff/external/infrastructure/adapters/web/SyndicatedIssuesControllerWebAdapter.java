@@ -3,7 +3,7 @@ package es.maetd.marketcreators.bff.external.infrastructure.adapters.web;
 import es.maetd.marketcreators.bff.external.application.mappers.SyndicatedIssuesApplicationMapper;
 import es.maetd.marketcreators.bff.external.application.service.SyndicatedIssuesApplicationService;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetSyndicatedIssuesIDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesResponseDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesResponseDTO;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.openapitools.api.SyndicatedIssuesApi;
@@ -37,14 +37,13 @@ public class SyndicatedIssuesControllerWebAdapter extends BaseController impleme
 
         doValidateCsbPermission(csb.orElse(null));
 
-        GetSyndicatedIssuesIDTO idto = new GetSyndicatedIssuesIDTO();
+        GetSyndicatedIssuesIDTO idto = GetSyndicatedIssuesIDTO.builder()
+                .csb(csb.orElse(null))
+                .month(month.orElse(null))
+                .year(year.orElse(null))
+                .build();
 
-        csb.ifPresent(value -> idto.setCsb(Long.valueOf(value)));
-
-        idto.setMonth(month.orElse(null));
-        idto.setYear(year.orElse(null));
-
-        SyndicatedIssuesResponseDto dto = service.getSyndicatedIssues(idto);
+        SyndicatedIssuesResponseDTO dto = service.getSyndicatedIssues(idto);
 
         SyndicatedIssuesDataListWDTO response = new SyndicatedIssuesDataListWDTO();
         response.setSyndicatedIssues(mapper.map(dto.getList()));

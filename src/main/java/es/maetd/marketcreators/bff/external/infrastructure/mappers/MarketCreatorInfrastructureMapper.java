@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.infrastructure.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDTO;
 import es.maetd.marketcreators.clients.rest.domains.creators.model.MarketCreatorData;
 import java.util.List;
 import org.mapstruct.InheritInverseConfiguration;
@@ -11,7 +11,7 @@ import org.mapstruct.ReportingPolicy;
 public interface MarketCreatorInfrastructureMapper {
 
     @InheritInverseConfiguration
-    MarketCreatorData map(EntityDto model);
+    MarketCreatorData map(EntityDTO model);
 
-    List<EntityDto> mapAsList(List<MarketCreatorData> list);
+    List<EntityDTO> mapAsList(List<MarketCreatorData> list);
 }

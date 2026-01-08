@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.application.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesDTO;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -9,7 +9,7 @@ import org.openapitools.model.SyndicatedIssuesDataWDTO;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.WARN)
 public interface SyndicatedIssuesApplicationMapper {
 
-    List<SyndicatedIssuesDataWDTO> map(List<SyndicatedIssuesDto> syndicatedIssuesDto);
+    List<SyndicatedIssuesDataWDTO> map(List<SyndicatedIssuesDTO> syndicatedIssuesDto);
 
-    SyndicatedIssuesDataWDTO map(SyndicatedIssuesDto model);
+    SyndicatedIssuesDataWDTO map(SyndicatedIssuesDTO model);
 }

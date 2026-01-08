@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.application.service;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.AuctionsResponseDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.AuctionResponseDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetAuctionsIDTO;
 
 /**
@@ -18,8 +18,8 @@ public interface AuctionApplicationService {
      *
      * @param idto input data transfer object containing the criteria
      *             required to obtain the auctions
-     * @return a {@link AuctionsResponseDto} containing the list of auctions
+     * @return a {@link AuctionResponseDTO} containing the list of auctions
      *         and related metadata
      */
-    AuctionsResponseDto getAuctions(GetAuctionsIDTO idto);
+    AuctionResponseDTO getAuctions(GetAuctionsIDTO idto);
 }

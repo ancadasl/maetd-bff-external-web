@@ -2,9 +2,8 @@ package es.maetd.marketcreators.bff.external.application.service.impl;
 
 import es.maetd.marketcreators.bff.external.application.port.client.DocumentRepositoryPort;
 import es.maetd.marketcreators.bff.external.application.service.DocumentApplicationService;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.*;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDto;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDTO;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetDocumentsIDTO;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -19,12 +18,12 @@ public class DocumentApplicationServiceImpl implements DocumentApplicationServic
     private final DocumentRepositoryPort repositoryPort;
 
     @Override
-    public DocumentDataResponseDto getFiles(GetDocumentsIDTO idto) {
+    public DocumentDataResponseDTO getFiles(GetDocumentsIDTO idto) {
         return repositoryPort.getDocuments(idto);
     }
 
     @Override
-    public DocumentDto getDocumentData(UUID fileId) {
+    public DocumentDTO getDocumentData(UUID fileId) {
         return repositoryPort.getDocumentData(fileId);
     }
 }

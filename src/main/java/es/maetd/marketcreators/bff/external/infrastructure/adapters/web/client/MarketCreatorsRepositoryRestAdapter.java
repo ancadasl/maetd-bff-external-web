@@ -1,7 +1,7 @@
 package es.maetd.marketcreators.bff.external.infrastructure.adapters.web.client;
 
 import es.maetd.marketcreators.bff.external.application.port.client.MarketCreatorsPort;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.MarketCreatorInfrastructureMapper;
 import es.maetd.marketcreators.clients.rest.domains.creators.model.MarketCreatorsList;
 import es.maetd.marketcreators.clients.rest.exception.RestException;
@@ -30,14 +30,14 @@ public class MarketCreatorsRepositoryRestAdapter implements MarketCreatorsPort {
     }
 
     @Override
-    public List<EntityDto> getCreators() {
+    public List<EntityDTO> getCreators() {
         RequestIDTO<Void, MarketCreatorsList> request = RequestIDTO.<Void, MarketCreatorsList>builder()
                 .systemKey("CREATORS_MS")
                 .urlKey("getCreators")
                 .type(new ParameterizedTypeReference<>() {})
                 .build();
 
-        List<EntityDto> list = null;
+        List<EntityDTO> list = null;
         try {
             ResponseEntity<MarketCreatorsList> response = restClient.execute(request);
             if (HttpStatus.OK.equals(response.getStatusCode())) {

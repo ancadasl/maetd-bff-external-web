@@ -2,8 +2,8 @@ package es.maetd.marketcreators.bff.external.infrastructure.adapters.web.client;
 
 import es.maetd.marketcreators.bff.external.application.port.client.DocumentRepositoryPort;
 import es.maetd.marketcreators.bff.external.exception.DocumentServiceException;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDto;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDTO;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetDocumentsIDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.DocumentInfrastructureMapper;
 import es.maetd.marketcreators.clients.rest.domains.files.model.FileResponse;
@@ -53,7 +53,7 @@ public class DocumentRepositoryRestAdapter implements DocumentRepositoryPort {
     }
 
     @Override
-    public DocumentDataResponseDto getDocuments(GetDocumentsIDTO idto) {
+    public DocumentDataResponseDTO getDocuments(GetDocumentsIDTO idto) {
 
         MultiValueMap<String, String> queryParams = getStringStringMultiValueMap(idto);
 
@@ -71,9 +71,9 @@ public class DocumentRepositoryRestAdapter implements DocumentRepositoryPort {
 
                 FileResponse body = response.getBody();
 
-                List<DocumentDto> documentsDtos = mapper.map(body.getFiles());
+                List<DocumentDTO> documentsDtos = mapper.map(body.getFiles());
 
-                return DocumentDataResponseDto.builder()
+                return DocumentDataResponseDTO.builder()
                         .list(documentsDtos)
                         .count(body.getCountFiles())
                         .build();
@@ -83,14 +83,14 @@ public class DocumentRepositoryRestAdapter implements DocumentRepositoryPort {
             log.error("Error calling getFileList  {}", rEx.getMessage());
         }
 
-        return DocumentDataResponseDto.builder()
+        return DocumentDataResponseDTO.builder()
                 .list(Collections.emptyList())
                 .count(0)
                 .build();
     }
 
     @Override
-    public DocumentDto getDocumentData(UUID fileId) {
+    public DocumentDTO getDocumentData(UUID fileId) {
 
         log.info("Recovering file binary data with id : {}", fileId);
 
@@ -117,7 +117,10 @@ public class DocumentRepositoryRestAdapter implements DocumentRepositoryPort {
                     throw new DocumentServiceException("File not found in remote service");
                 }
                 String filename = response.getHeaders().getContentDisposition().getFilename();
-                return new DocumentDto(fileBytes, null, filename, null, null, null);
+                return DocumentDTO.builder()
+                        .data(fileBytes)
+                        .documentName(filename)
+                        .build();
             } else {
                 throw new DocumentServiceException(String.format(
                         "File id = %s not found. Service = %s , endpoint = %s",

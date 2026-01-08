@@ -52,19 +52,17 @@ public class EvaluationControllerWebAdapter extends BaseController implements Ev
 
         doValidateCsbPermission(csb.orElse(null));
 
-        GetEvaluationsIDTO idto = new GetEvaluationsIDTO();
+        GetEvaluationsIDTO idto = GetEvaluationsIDTO.builder()
+                .productType(productType.map(ProductType::fromString).orElse(null))
+                .status(status.map(list ->
+                                list.stream().map(EvaluationStatus::valueOf).toList())
+                        .orElse(null))
+                .csb(csb.orElse(null))
+                .month(month.orElse(null))
+                .year(year.orElse(null))
+                .build();
 
-        productType.ifPresent(p -> idto.setProductType(ProductType.fromString(p)));
-        status.ifPresent(list -> {
-            List<EvaluationStatus> enumList =
-                    list.stream().map(EvaluationStatus::valueOf).toList();
-            idto.setStatus(enumList);
-        });
-        idto.setCsb(csb.orElse(null));
-        idto.setMonth(month.orElse(null));
-        idto.setYear(year.orElse(null));
-
-        EvaluationResponseDto dto = service.getEvaluations(idto);
+        EvaluationResponseDTO dto = service.getEvaluations(idto);
 
         EvaluationDataListWDTO response = new EvaluationDataListWDTO();
         response.setEvaluations(mapper.map(dto.getList()));
@@ -84,18 +82,16 @@ public class EvaluationControllerWebAdapter extends BaseController implements Ev
 
         doValidateCsbPermission(csb.orElse(null));
 
-        GetEvaluationsIDTO idto = new GetEvaluationsIDTO();
+        GetEvaluationsIDTO idto = GetEvaluationsIDTO.builder()
+                .status(status.map(list ->
+                                list.stream().map(EvaluationStatus::valueOf).toList())
+                        .orElse(null))
+                .csb(csb.orElse(null))
+                .month(month.orElse(null))
+                .year(year.orElse(null))
+                .build();
 
-        status.ifPresent(list -> {
-            List<EvaluationStatus> enumList =
-                    list.stream().map(EvaluationStatus::valueOf).toList();
-            idto.setStatus(enumList);
-        });
-        idto.setCsb(csb.orElse(null));
-        idto.setMonth(month.orElse(null));
-        idto.setYear(year.orElse(null));
-
-        EvaluationJointResponseDto dto = service.getEvaluationsJoint(idto);
+        EvaluationJointResponseDTO dto = service.getEvaluationsJoint(idto);
         EvaluationJoinDataListWDTO response = new EvaluationJoinDataListWDTO();
         response.setEvaluationsJoint(mapperJoint.map(dto.getList()));
         return ResponseEntity.ok(response);

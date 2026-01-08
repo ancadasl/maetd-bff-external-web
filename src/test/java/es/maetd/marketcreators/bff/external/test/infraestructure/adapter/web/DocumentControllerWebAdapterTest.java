@@ -7,8 +7,8 @@ import static org.mockito.Mockito.*;
 import es.maetd.marketcreators.bff.external.application.mappers.DocumentApplicationMapper;
 import es.maetd.marketcreators.bff.external.application.mappers.DocumentApplicationMapperImpl;
 import es.maetd.marketcreators.bff.external.application.service.DocumentApplicationService;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDto;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDTO;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetDocumentsIDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.web.DocumentControllerWebAdapter;
 import es.maetd.marketcreators.ddd.core.events.domains.files.CategoryType;
@@ -33,7 +33,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
-public class DocumentControllerWebAdapterTest {
+class DocumentControllerWebAdapterTest {
 
     @Mock
     private DocumentApplicationService service;
@@ -61,18 +61,9 @@ public class DocumentControllerWebAdapterTest {
         Optional<String> csb = Optional.of("csb");
         Optional<String> language = Optional.of("ES");
 
-        GetDocumentsIDTO idtoMock = new GetDocumentsIDTO();
-
-        idtoMock.setPage(0);
-        idtoMock.setSize(size.orElse(15));
-
-        idtoMock.setCategory(CategoryType.ACTAS_LETTER.name());
-        idtoMock.setCreationDate(creationDate.orElse(null));
-
-        idtoMock.setCsb(csb.orElse(null));
-        DocumentDto dto = createDummyDocumentDto();
-        DocumentDataResponseDto resDocument =
-                DocumentDataResponseDto.builder().list(List.of(dto)).build();
+        DocumentDTO dto = createDummyDocumentDto();
+        DocumentDataResponseDTO resDocument =
+                DocumentDataResponseDTO.builder().list(List.of(dto)).build();
 
         // when
         when(service.getFiles(any(GetDocumentsIDTO.class))).thenReturn(resDocument);
@@ -96,7 +87,7 @@ public class DocumentControllerWebAdapterTest {
         UUID id = UUID.randomUUID();
         byte[] data = "contenido-de-prueba".getBytes();
 
-        DocumentDto dto = createDummyDocumentDto();
+        DocumentDTO dto = createDummyDocumentDto();
 
         dto.setData(data);
 
@@ -123,13 +114,13 @@ public class DocumentControllerWebAdapterTest {
         verify(service, times(1)).getDocumentData(id);
     }
 
-    private DocumentDto createDummyDocumentDto() {
-        return new DocumentDto(
-                new byte[0],
-                null,
-                "fileTest.txt",
-                FileType.EXTERNAL_CREATOR_FILE,
-                OriginSystemType.BDE,
-                "Descripción documento");
+    private DocumentDTO createDummyDocumentDto() {
+        return DocumentDTO.builder()
+                .data(new byte[0])
+                .documentName("fileTest.txt")
+                .fileType(FileType.EXTERNAL_CREATOR_FILE)
+                .originSystem(OriginSystemType.BDE)
+                .description("Descripción documento")
+                .build();
     }
 }

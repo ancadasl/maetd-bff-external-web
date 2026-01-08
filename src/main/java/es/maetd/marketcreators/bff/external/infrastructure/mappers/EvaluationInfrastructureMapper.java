@@ -1,7 +1,7 @@
 package es.maetd.marketcreators.bff.external.infrastructure.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationDto;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationJointDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationDTO;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationJointDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.EvaluationEntity;
 import java.util.Comparator;
 import java.util.List;
@@ -15,23 +15,23 @@ import org.mapstruct.ReportingPolicy;
 public interface EvaluationInfrastructureMapper {
 
     @Mapping(source = "csb", target = "csb", qualifiedByName = "padCsb")
-    EvaluationDto map(EvaluationEntity entity);
+    EvaluationDTO map(EvaluationEntity entity);
 
-    EvaluationEntity map(EvaluationDto entity);
+    EvaluationEntity map(EvaluationDTO entity);
 
     @Named("padCsb")
     default String padCsb(Long csb) {
         return csb == null ? null : String.format("%04d", csb);
     }
 
-    default List<EvaluationJointDto> mapAndGroupByYearAndMonth(List<EvaluationEntity> entities) {
+    default List<EvaluationJointDTO> mapAndGroupByYearAndMonth(List<EvaluationEntity> entities) {
         return entities.stream()
                 .collect(Collectors.toMap(
                         e -> e.getYear() + "-" + e.getMonthNumeric() + "-" + e.getCsb(), // clave única por año-mes-csb
                         e -> {
                             // Mapeamos la entidad a DTO individual
-                            EvaluationDto dto = map(e);
-                            return new EvaluationJointDto(
+                            EvaluationDTO dto = map(e);
+                            return new EvaluationJointDTO(
                                     dto.getStatus(),
                                     dto.getCsb(),
                                     dto.getYear(),
@@ -52,7 +52,7 @@ public interface EvaluationInfrastructureMapper {
                             Long letter = existing.getLetter() != null ? existing.getLetter() : replacement.getLetter();
                             Long bonds = existing.getBonds() != null ? existing.getBonds() : replacement.getBonds();
 
-                            return new EvaluationJointDto(
+                            return new EvaluationJointDTO(
                                     existing.getStatus(),
                                     existing.getCsb(),
                                     existing.getYear(),
@@ -64,8 +64,8 @@ public interface EvaluationInfrastructureMapper {
                         }))
                 .values()
                 .stream()
-                .sorted(Comparator.comparing(EvaluationJointDto::getYear)
-                        .thenComparing(EvaluationJointDto::getMonthNumeric))
+                .sorted(Comparator.comparing(EvaluationJointDTO::getYear)
+                        .thenComparing(EvaluationJointDTO::getMonthNumeric))
                 .toList();
     }
 }

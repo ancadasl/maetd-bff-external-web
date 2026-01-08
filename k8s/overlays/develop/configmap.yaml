@@ -11,7 +11,5 @@ data:
   DATABASE_OPERATION: "validate"
   DATABASE_DEFAULT_SCHEMA: "marketcreators_dataweb"
   CLIENT_REST_URL_FILE: "http://maetd-ms-market-files:8080"
-  CLIENT_REST_URL_CONFIGURATION: "http://maetd-ms-market-global-configuration:8080"
   CLIENT_REST_URL_CREATOR: "http://maetd-ms-market-creators:8080"
-  CLIENT_REST_URL_AUTOHEDGING: "http://maetd-ms-market-autohedging:8080"
-  JWKS_URL_TOKEN: "http://maetd-dev.zenerconsulting.com:31036/realms/maetd/protocol/openid-connect/certs"
+  JWKS_URL_TOKEN: "http://maetd-dev.zenerconsulting.com:31036/realms/creators-external/protocol/openid-connect/certs"

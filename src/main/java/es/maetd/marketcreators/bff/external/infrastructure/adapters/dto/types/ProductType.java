@@ -5,21 +5,8 @@ import lombok.Getter;
 
 @Getter
 public enum ProductType {
-    LETTER(1),
-    BOND(2);
-
-    private final int value;
-
-    ProductType(int value) {
-        this.value = value;
-    }
-
-    public static ProductType getProductType(int id) {
-        return Arrays.stream(ProductType.values())
-                .filter(p -> id == p.getValue())
-                .findFirst()
-                .orElseThrow();
-    }
+    LETTER,
+    BOND;
 
     public static ProductType fromString(String name) {
         return Arrays.stream(ProductType.values())

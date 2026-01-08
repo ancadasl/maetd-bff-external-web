@@ -1,8 +1,8 @@
 package es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository;
 
 import es.maetd.marketcreators.bff.external.application.port.EvaluationRepositoryPort;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationDto;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationJointDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationDTO;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationJointDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetEvaluationsIDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.EvaluationEntity;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.specification.EvaluationSpecification;
@@ -20,13 +20,13 @@ public class EvaluationRepositoryAdapter implements EvaluationRepositoryPort {
     private final EvaluationInfrastructureMapper mapper;
 
     @Override
-    public List<EvaluationDto> getEvaluations(GetEvaluationsIDTO idto) {
+    public List<EvaluationDTO> getEvaluations(GetEvaluationsIDTO idto) {
         Specification<EvaluationEntity> filters = setFilters(idto);
         return repository.findAll(filters).stream().map(mapper::map).toList();
     }
 
     @Override
-    public List<EvaluationJointDto> getEvaluationsJoint(GetEvaluationsIDTO idto) {
+    public List<EvaluationJointDTO> getEvaluationsJoint(GetEvaluationsIDTO idto) {
         Specification<EvaluationEntity> filters = setFilters(idto);
         List<EvaluationEntity> entities = repository.findAll(filters);
         return mapper.mapAndGroupByYearAndMonth(entities);

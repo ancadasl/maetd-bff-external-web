@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.infrastructure.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDTO;
 import es.maetd.marketcreators.clients.rest.domains.files.model.ExternalWebFileData;
 import es.maetd.marketcreators.clients.rest.domains.files.model.FileData;
 import es.maetd.marketcreators.clients.rest.domains.files.model.FileList;
@@ -21,12 +21,12 @@ public interface DocumentInfrastructureMapper {
     @Mapping(target = "categoryType", source = "externalWebFileData.categoryType")
     @Mapping(target = "csb", source = "externalWebFileData.csb")
     @Mapping(target = "description", source = "externalWebFileData.description")
-    DocumentDto map(FileData fileData);
+    DocumentDTO map(FileData fileData);
 
-    List<DocumentDto> map(List<FileData> fileDataList);
+    List<DocumentDTO> map(List<FileData> fileDataList);
 
     @Named("mapDocumentsListToList")
-    default List<DocumentDto> map(FileList files) {
+    default List<DocumentDTO> map(FileList files) {
         if (files == null || files.getData() == null || files.getData().isEmpty()) {
             return Collections.emptyList();
         }

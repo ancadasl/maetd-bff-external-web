@@ -71,16 +71,11 @@ class SyndicatedIssuesControllerWebAdapterTest {
         // given
         Optional<Integer> year = Optional.of(2021);
         Optional<Integer> month = Optional.of(15);
-        Optional<String> csb = Optional.of("0128");
+        Optional<String> csb = Optional.of(NUMBER_CSB);
 
-        GetEvaluationsIDTO idtoMock = new GetEvaluationsIDTO();
-
-        idtoMock.setYear(year.orElse(null));
-        idtoMock.setMonth(month.orElse(null));
-        idtoMock.setCsb(csb.orElse(null));
-        SyndicatedIssuesDto dto = createDummySyndicatedIssuesDto();
-        SyndicatedIssuesResponseDto resSyndicatedIssues =
-                SyndicatedIssuesResponseDto.builder().list(List.of(dto)).build();
+        SyndicatedIssuesDTO dto = createDummySyndicatedIssuesDto();
+        SyndicatedIssuesResponseDTO resSyndicatedIssues =
+                SyndicatedIssuesResponseDTO.builder().list(List.of(dto)).build();
 
         // when
         when(service.getSyndicatedIssues(any(GetSyndicatedIssuesIDTO.class))).thenReturn(resSyndicatedIssues);
@@ -100,10 +95,10 @@ class SyndicatedIssuesControllerWebAdapterTest {
         verify(mapper, times(1)).map(anyList());
     }
 
-    public static SyndicatedIssuesDto createDummySyndicatedIssuesDto() {
-        SyndicatedIssuesDto dto = new SyndicatedIssuesDto();
+    public static SyndicatedIssuesDTO createDummySyndicatedIssuesDto() {
+        SyndicatedIssuesDTO dto = new SyndicatedIssuesDTO();
 
-        dto.setCsb("128");
+        dto.setCsb(NUMBER_CSB);
         dto.setYear(2023L);
         dto.setMonth(1L);
         dto.setLetter(10L);

@@ -2,8 +2,8 @@ package es.maetd.marketcreators.bff.external.infrastructure.adapters.web;
 
 import es.maetd.marketcreators.bff.external.application.mappers.DocumentApplicationMapper;
 import es.maetd.marketcreators.bff.external.application.service.DocumentApplicationService;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDto;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDTO;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetDocumentsIDTO;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -44,7 +44,7 @@ public class DocumentControllerWebAdapter implements DocumentsApi {
 
         log.info("Recovering file binary data with id : {}", id);
 
-        DocumentDto dto = service.getDocumentData(id);
+        DocumentDTO dto = service.getDocumentData(id);
 
         log.info("Returning file: {}", dto.getDocumentName());
 
@@ -66,16 +66,17 @@ public class DocumentControllerWebAdapter implements DocumentsApi {
             Optional<String> csb,
             Optional<String> language) {
 
-        GetDocumentsIDTO idto = new GetDocumentsIDTO();
-        idto.setPage(page.orElse(null));
-        idto.setSize(size.orElse(null));
-        idto.setCategory(getCategory(category.orElse(null)));
-        idto.setCsb(csb.orElse(null));
-        idto.setCreationDate(creationDate.orElse(null));
-        idto.setLanguage(language.orElse(null));
+        GetDocumentsIDTO idto = GetDocumentsIDTO.builder()
+                .page(page.orElse(null))
+                .size(size.orElse(null))
+                .category(getCategory(category.orElse(null)))
+                .csb(csb.orElse(null))
+                .creationDate(creationDate.orElse(null))
+                .language(language.orElse(null))
+                .build();
 
         DocumentDataListWDTO response = new DocumentDataListWDTO();
-        DocumentDataResponseDto dto = service.getFiles(idto);
+        DocumentDataResponseDTO dto = service.getFiles(idto);
         response.setDocuments(mapper.map(dto.getList()));
         response.setTotal(dto.getCount());
 

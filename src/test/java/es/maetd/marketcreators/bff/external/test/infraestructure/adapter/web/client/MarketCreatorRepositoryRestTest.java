@@ -5,7 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.web.client.MarketCreatorsRepositoryRestAdapter;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.MarketCreatorInfrastructureMapper;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.MarketCreatorInfrastructureMapperImpl;
@@ -56,7 +56,7 @@ class MarketCreatorRepositoryRestTest {
         when(restClient.execute(any(RequestIDTO.class))).thenReturn(response);
         when(mapper.mapAsList(anyList())).thenReturn(mapperImpl.mapAsList(list.getData()));
 
-        List<EntityDto> result = adapter.getCreators();
+        List<EntityDTO> result = adapter.getCreators();
 
         // Then
         assertEquals(list.getData().get(0).getCsb(), result.get(0).getCsb());

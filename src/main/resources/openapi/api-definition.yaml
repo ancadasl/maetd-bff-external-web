@@ -255,6 +255,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SyndicatedIssuesDataList'
+  /charts:
+    get:
+      operationId: getCharts
+      description: Servicio para obtener la información para gráficas
+      parameters:
+        - name: productType
+          in: query
+          description: Filtro tipo de producto
+          schema:
+            type: string
+            nullable: false
+            enum:
+              - LETTER
+              - BOND
+        - name: csb
+          in: query
+          description: Para filtrar por creador en web externa
+          schema:
+            type: string
+            nullable: false
+        - name: year
+          in: query
+          description: Año
+          schema:
+            type: integer
+            format: int32
+            nullable: true
+      responses:
+        200:
+          description: Listado de subastas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartsDataGroup'
   /market-creators:
     get:
       operationId: getMarketCreators
@@ -348,11 +382,29 @@ components:
       description: Primario y secundario subasta
       properties:
         primaryAuctions:
-          type: object
           $ref: '#/components/schemas/AuctionData'
         secondaryAuctions:
-          type: object
           $ref: '#/components/schemas/AuctionData'
+    ChartsDataGroup:
+      type: object
+      description: Primario secundario y total para gráficas
+      properties:
+        primaryCharts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChartData'
+        secondaryCharts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChartData'
+        totalCharts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChartData'
+        overBiddingCharts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChartData'
     EvaluationData:
       type: object
       properties:
@@ -459,6 +511,25 @@ components:
             type: number
             format: double
             nullable: true
+    ChartData:
+      type: object
+      properties:
+        csb:
+          type: string
+        month:
+          type: integer
+        productType:
+          type: string
+          description: Tipo de Producto
+          enum:
+            - LETTER
+            - BOND
+        total_points:
+          type: number
+          format: double
+        media:
+          type: number
+          format: double
     SyndicatedIssuesDataList:
       type: object
       description: Listado de syndicated issues

@@ -1,11 +1,10 @@
 package es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity;
 
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.ProductType;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +14,7 @@ import lombok.Setter;
 @Table(name = "v_overbidding")
 public class OverbiddingEntity implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -36,8 +36,9 @@ public class OverbiddingEntity implements Serializable {
     @Column(name = "penalty")
     private Double penalty;
 
-    @Column(name = "type")
-    private String type;
+    @Column(name = "type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ProductType productType;
 
     @Column(name = "average")
     private Double average;

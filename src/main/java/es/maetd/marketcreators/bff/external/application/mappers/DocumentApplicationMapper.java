@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.application.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDTO;
 import es.maetd.marketcreators.ddd.core.events.domains.files.CategoryType;
 import java.util.Arrays;
 import java.util.List;
@@ -12,9 +12,9 @@ import org.openapitools.model.DocumentDataWDTO;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.WARN)
 public interface DocumentApplicationMapper {
 
-    List<DocumentDataWDTO> map(List<DocumentDto> documentData);
+    List<DocumentDataWDTO> map(List<DocumentDTO> documentData);
 
-    DocumentDataWDTO map(DocumentDto model);
+    DocumentDataWDTO map(DocumentDTO model);
 
     default DocumentDataWDTO.CategoryTypeEnum mapCategoryEnum(CategoryType categoryType) {
         return Optional.ofNullable(categoryType)

@@ -5,7 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetSyndicatedIssuesIDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.SyndicatedIssuesEntity;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.SyndicatedIssuesRepository;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.SyndicatedIssuesRepositoryAdapter;
@@ -27,7 +27,7 @@ class SyndicatedIssuesRepositoryAdapterTest {
 
     private static final int MONTH = 2;
 
-    private static final long CSB = 125L;
+    private static final String CSB = "0125";
 
     @InjectMocks
     SyndicatedIssuesRepositoryAdapter adapter;
@@ -55,13 +55,13 @@ class SyndicatedIssuesRepositoryAdapterTest {
         when(repository.findAll(any(Specification.class))).thenReturn(List.of(entity));
         when(mapper.map(any(SyndicatedIssuesEntity.class))).thenReturn(mapperImpl.map(entity));
 
-        GetSyndicatedIssuesIDTO idtoMock = new GetSyndicatedIssuesIDTO();
+        GetSyndicatedIssuesIDTO idtoMock = GetSyndicatedIssuesIDTO.builder()
+                .year(YEAR)
+                .month(MONTH)
+                .csb(CSB)
+                .build();
 
-        idtoMock.setYear(YEAR);
-        idtoMock.setMonth(MONTH);
-        idtoMock.setCsb(CSB);
-
-        List<SyndicatedIssuesDto> result = adapter.getSyndicatedIssues(idtoMock);
+        List<SyndicatedIssuesDTO> result = adapter.getSyndicatedIssues(idtoMock);
 
         // Then
         assertEquals(entity.getBonds(), result.get(0).getBonds());

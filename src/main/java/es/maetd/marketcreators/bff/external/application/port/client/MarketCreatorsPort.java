@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.application.port.client;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDTO;
 import java.util.List;
 
 /**
@@ -12,5 +12,5 @@ public interface MarketCreatorsPort {
      *
      * @return the list of creators
      */
-    List<EntityDto> getCreators();
+    List<EntityDTO> getCreators();
 }

@@ -1,8 +1,7 @@
 package es.maetd.marketcreators.bff.external.application.service;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.*;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDto;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDTO;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetDocumentsIDTO;
 import java.util.UUID;
 
@@ -43,11 +42,11 @@ public interface DocumentApplicationService {
      * </p>
      *
      * @param idto the input DTO containing the identifiers or filters for retrieving documents
-     * @return a {@link DocumentDataResponseDto} containing document details and content
+     * @return a {@link DocumentDataResponseDTO} containing document details and content
      * @throws IllegalArgumentException if the input data is invalid or incomplete
      * @throws RuntimeException if an unexpected error occurs during data retrieval
      */
-    DocumentDataResponseDto getFiles(GetDocumentsIDTO idto);
+    DocumentDataResponseDTO getFiles(GetDocumentsIDTO idto);
 
     /**
      * Retrieves detailed information about a single document identified by its unique ID.
@@ -58,9 +57,9 @@ public interface DocumentApplicationService {
      * </p>
      *
      * @param fileId the unique identifier of the document to retrieve
-     * @return a {@link DocumentDto} containing metadata and document-related information
+     * @return a {@link DocumentDTO} containing metadata and document-related information
      * @throws IllegalArgumentException if {@code fileId} is {@code null}
      * @throws RuntimeException if the document cannot be retrieved or an unexpected error occurs
      */
-    DocumentDto getDocumentData(UUID fileId);
+    DocumentDTO getDocumentData(UUID fileId);
 }

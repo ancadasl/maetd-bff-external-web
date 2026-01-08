@@ -2,7 +2,7 @@ package es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence
 
 import es.maetd.marketcreators.bff.external.application.port.SyndicatedIssuesRepositoryPort;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetSyndicatedIssuesIDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.SyndicatedIssuesEntity;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.specification.SyndicatedIssueSpecification;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.SyndicatedIssuesInfrastructureMapper;
@@ -19,7 +19,7 @@ public class SyndicatedIssuesRepositoryAdapter implements SyndicatedIssuesReposi
     private final SyndicatedIssuesInfrastructureMapper mapper;
 
     @Override
-    public List<SyndicatedIssuesDto> getSyndicatedIssues(GetSyndicatedIssuesIDTO idto) {
+    public List<SyndicatedIssuesDTO> getSyndicatedIssues(GetSyndicatedIssuesIDTO idto) {
         Specification<SyndicatedIssuesEntity> filters = setFilters(idto);
         return repository.findAll(filters).stream().map(mapper::map).toList();
     }

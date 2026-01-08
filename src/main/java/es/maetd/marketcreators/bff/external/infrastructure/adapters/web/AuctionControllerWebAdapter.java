@@ -37,17 +37,14 @@ public class AuctionControllerWebAdapter extends BaseController implements Aucti
 
         doValidateCsbPermission(csb.orElse(null));
 
-        GetAuctionsIDTO idto = new GetAuctionsIDTO();
+        GetAuctionsIDTO idto = GetAuctionsIDTO.builder()
+                .productType(productType.map(ProductType::fromString).orElse(null))
+                .csb(csb.orElse(null))
+                .year(year.orElse(null))
+                .month(month.orElse(null))
+                .build();
 
-        productType.ifPresent(p -> idto.setProductType(ProductType.fromString(p)));
-
-        idto.setCsb(csb.orElse(null));
-
-        idto.setYear(year.orElse(null));
-
-        idto.setMonth(month.orElse(null));
-
-        AuctionsResponseDto dto = service.getAuctions(idto);
+        AuctionResponseDTO dto = service.getAuctions(idto);
 
         AuctionsDataGroupWDTO response = new AuctionsDataGroupWDTO();
 

@@ -2,7 +2,7 @@ package es.maetd.marketcreators.bff.external.application.service.impl;
 
 import es.maetd.marketcreators.bff.external.application.port.client.MarketCreatorsPort;
 import es.maetd.marketcreators.bff.external.application.service.MarketCreatorApplicationService;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDTO;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ public class MarketCreatorsApplicationServiceImpl implements MarketCreatorApplic
     private final MarketCreatorsPort port;
 
     @Override
-    public List<EntityDto> getMarketCreators() {
+    public List<EntityDTO> getMarketCreators() {
         return port.getCreators().parallelStream()
                 .filter(c -> c.getCsb() != null
                         && !c.getCsb().isEmpty()

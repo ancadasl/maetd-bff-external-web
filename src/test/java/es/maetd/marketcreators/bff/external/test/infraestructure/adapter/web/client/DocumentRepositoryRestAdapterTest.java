@@ -4,8 +4,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import es.maetd.marketcreators.bff.external.exception.DocumentServiceException;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDto;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDTO;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetDocumentsIDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.web.client.DocumentRepositoryRestAdapter;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.DocumentInfrastructureMapper;
@@ -71,13 +71,13 @@ class DocumentRepositoryRestAdapterTest {
         when(restClient.execute(any(RequestIDTO.class))).thenReturn(response);
         when(mapper.map(any(FileList.class))).thenReturn(mapperImpl.map(list));
 
-        GetDocumentsIDTO idtoMock = new GetDocumentsIDTO();
+        GetDocumentsIDTO idtoMock = GetDocumentsIDTO.builder()
+                .page(0)
+                .size(15)
+                .category(CategoryType.ACTAS_LETTER.name())
+                .build();
 
-        idtoMock.setPage(0);
-        idtoMock.setSize(15);
-        idtoMock.setCategory(CategoryType.ACTAS_LETTER.name());
-
-        DocumentDataResponseDto result = adapter.getDocuments(idtoMock);
+        DocumentDataResponseDTO result = adapter.getDocuments(idtoMock);
 
         // Then
         Assertions.assertEquals(file.getFilename(), result.getList().get(0).getDocumentName());
@@ -103,7 +103,7 @@ class DocumentRepositoryRestAdapterTest {
         when(restClient.execute(any(RequestIDTO.class))).thenReturn(response);
 
         // when
-        DocumentDto result = adapter.getDocumentData(fileId);
+        DocumentDTO result = adapter.getDocumentData(fileId);
 
         // then
         Assertions.assertNotNull(result);

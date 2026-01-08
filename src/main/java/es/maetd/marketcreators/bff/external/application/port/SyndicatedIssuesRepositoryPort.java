@@ -1,10 +1,10 @@
 package es.maetd.marketcreators.bff.external.application.port;
 
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetSyndicatedIssuesIDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesDTO;
 import java.util.List;
 
 public interface SyndicatedIssuesRepositoryPort {
 
-    List<SyndicatedIssuesDto> getSyndicatedIssues(GetSyndicatedIssuesIDTO idto);
+    List<SyndicatedIssuesDTO> getSyndicatedIssues(GetSyndicatedIssuesIDTO idto);
 }

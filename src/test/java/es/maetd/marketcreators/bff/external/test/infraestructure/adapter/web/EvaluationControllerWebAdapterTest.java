@@ -84,14 +84,9 @@ class EvaluationControllerWebAdapterTest {
 
         Optional<List<String>> optionalStatus = Optional.of(statusStrings);
 
-        GetEvaluationsIDTO idtoMock = new GetEvaluationsIDTO();
-
-        idtoMock.setYear(year.orElse(null));
-        idtoMock.setMonth(month.orElse(null));
-        idtoMock.setCsb(csb.orElse(null));
-        EvaluationDto dto = createDummyEvaluationDataDto();
-        EvaluationResponseDto resEvaluation =
-                EvaluationResponseDto.builder().list(List.of(dto)).build();
+        EvaluationDTO dto = createDummyEvaluationDataDto();
+        EvaluationResponseDTO resEvaluation =
+                EvaluationResponseDTO.builder().list(List.of(dto)).build();
 
         // when
         when(service.getEvaluations(any(GetEvaluationsIDTO.class))).thenReturn(resEvaluation);
@@ -112,8 +107,8 @@ class EvaluationControllerWebAdapterTest {
         verify(mapper, times(1)).map(anyList());
     }
 
-    public static EvaluationDto createDummyEvaluationDataDto() {
-        EvaluationDto dto = new EvaluationDto();
+    public static EvaluationDTO createDummyEvaluationDataDto() {
+        EvaluationDTO dto = new EvaluationDTO();
 
         dto.setEvaluationId(1L);
         dto.setStatus(EvaluationStatus.FINISH_CONSOLIDATED_FINISHED);

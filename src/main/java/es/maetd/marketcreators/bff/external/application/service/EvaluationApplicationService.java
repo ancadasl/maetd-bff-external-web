@@ -15,9 +15,9 @@ public interface EvaluationApplicationService {
      * Retrieves individual evaluations for a given set of identifiers.
      *
      * @param idto Input DTO containing identifiers or criteria to filter the evaluations.
-     * @return {@link EvaluationResponseDto} containing the information of individual evaluations.
+     * @return {@link EvaluationResponseDTO} containing the information of individual evaluations.
      */
-    EvaluationResponseDto getEvaluations(GetEvaluationsIDTO idto);
+    EvaluationResponseDTO getEvaluations(GetEvaluationsIDTO idto);
 
     /**
      * Retrieves joint evaluations for a given set of identifiers.
@@ -27,7 +27,7 @@ public interface EvaluationApplicationService {
      * </p>
      *
      * @param idto Input DTO containing identifiers or criteria to filter the evaluations.
-     * @return {@link EvaluationJointResponseDto} containing the aggregated evaluation information.
+     * @return {@link EvaluationJointResponseDTO} containing the aggregated evaluation information.
      */
-    EvaluationJointResponseDto getEvaluationsJoint(GetEvaluationsIDTO idto);
+    EvaluationJointResponseDTO getEvaluationsJoint(GetEvaluationsIDTO idto);
 }

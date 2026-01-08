@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.infrastructure.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.SyndicatedIssuesEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,17 +10,11 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.WARN)
 public interface SyndicatedIssuesInfrastructureMapper {
 
-    @Mapping(source = "csb", target = "csb", qualifiedByName = "padCsb")
     @Mapping(source = "month", target = "month", qualifiedByName = "monthToNumber")
     @Mapping(source = "li", target = "letter")
-    SyndicatedIssuesDto map(SyndicatedIssuesEntity entity);
+    SyndicatedIssuesDTO map(SyndicatedIssuesEntity entity);
 
-    SyndicatedIssuesEntity map(SyndicatedIssuesDto dto);
-
-    @Named("padCsb")
-    default String padCsb(Long csb) {
-        return csb == null ? null : String.format("%04d", csb);
-    }
+    SyndicatedIssuesEntity map(SyndicatedIssuesDTO dto);
 
     @Named("monthToNumber")
     default int monthToNumber(String month) {

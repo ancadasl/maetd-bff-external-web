@@ -2,8 +2,8 @@ package es.maetd.marketcreators.bff.external.application.service.impl;
 
 import es.maetd.marketcreators.bff.external.application.port.EvaluationRepositoryPort;
 import es.maetd.marketcreators.bff.external.application.service.EvaluationApplicationService;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationJointResponseDto;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationResponseDto;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationJointResponseDTO;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationResponseDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetEvaluationsIDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,14 +17,14 @@ public class EvaluationApplicationServiceImpl implements EvaluationApplicationSe
     private final EvaluationRepositoryPort port;
 
     @Override
-    public EvaluationResponseDto getEvaluations(GetEvaluationsIDTO idto) {
+    public EvaluationResponseDTO getEvaluations(GetEvaluationsIDTO idto) {
 
-        return EvaluationResponseDto.builder().list(port.getEvaluations(idto)).build();
+        return EvaluationResponseDTO.builder().list(port.getEvaluations(idto)).build();
     }
 
     @Override
-    public EvaluationJointResponseDto getEvaluationsJoint(GetEvaluationsIDTO idto) {
-        return EvaluationJointResponseDto.builder()
+    public EvaluationJointResponseDTO getEvaluationsJoint(GetEvaluationsIDTO idto) {
+        return EvaluationJointResponseDTO.builder()
                 .list(port.getEvaluationsJoint(idto))
                 .build();
     }

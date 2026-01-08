@@ -11,13 +11,13 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class SyndicatedIssueSpecification implements Specification<SyndicatedIssuesEntity> {
 
-    private final Long csb;
+    private final String csb;
 
     private final Integer month;
 
     private final Integer year;
 
-    public SyndicatedIssueSpecification(Long csb, Integer month, Integer year) {
+    public SyndicatedIssueSpecification(String csb, Integer month, Integer year) {
 
         this.csb = csb;
         this.month = month;
