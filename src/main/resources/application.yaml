@@ -1,6 +1,22 @@
 server:
   port: 8080
 
+spring:
+  datasource:
+    url: ${MAETD_DATABASE_URL_BFF_EXTERNAL_WEB:jdbc:postgresql://localhost:5432/maetd_ms_bff_external_web}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    driver-class-name: ${DATABASE_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    hikari:
+      maximum-pool-size: 5
+      schema: ${DATABASE_DEFAULT_SCHEMA:public}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${DATABASE_OPERATION:validate}
+    generate-ddl: true
+    show-sql: true
+
 maetd:
   jwt:
     jwks-validator:
@@ -12,7 +28,6 @@ maetd:
           - /v3/api-docs
           - /health
         jwksUrl: ${JWKS_URL_TOKEN:http://maetd-dev.zenerconsulting.com:31036/realms/maetd/protocol/openid-connect/certs}
-
   clients:
     rest:
       oauth2Engine:
@@ -21,8 +36,42 @@ maetd:
           - clientAlias: internal_ms_oauth
             tokenUrl: ${TOKEN_URL:http://maetd-dev.zenerconsulting.com:31036/realms/maetd/protocol/openid-connect/token}
             clientId: ${CLIENT_ID:ms-internal-rest-integrations}
-            clientSecret: ${CLIENT_SECRET:p98Z7GuGxO3OTz99OBTwKAyaYKioGEgy}
+            clientSecret: ${CLIENT_SECRET:YJSOSsdNOfbW4bKq97egPhVIOHGBnSNJ}
             scopes:
               - openid
+      systems:
+        FILES_MS:
+          oauth-client-alias: internal_ms_oauth
+          endpoints:
+            getFileList:
+              url: ${CLIENT_REST_URL_FILE:http://maetd-ms-market-files:8080}/files
+              method: get
+              headers:
+                "Content-Type": "application/json"
+            uploadMultipleFiles:
+              url: ${CLIENT_REST_URL_FILE:http://maetd-ms-market-files:8080}/files/multi-upload
+              method: post
+              headers:
+                "Content-Type": "multipart/form-data"
+            getFileData:
+              url: ${CLIENT_REST_URL_FILE:http://maetd-ms-market-files:8080}/files/{id}/data
+              method: get
+              description: Servicio para obtener el binario de un fichero
+              headers:
+                "Content-Type": "application/octet-stream"
+              path-parameters:
+                - name: id
+                  description: ID del fichero
+                  required: true
+                  schema:
+                    type: string
+        CREATORS_MS:
+          oauth-client-alias: internal_ms_oauth
+          endpoints:
+            getCreators:
+              url: ${CLIENT_REST_URL_CREATOR:http://maetd-ms-market-creators:8080}/market-creators
+              method: get
+              headers:
+                "Content-Type": "application/json"
 
 

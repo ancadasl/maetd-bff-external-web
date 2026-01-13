@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-files-bde
-  namespace: default
+  namespace: external-web
 spec:
   accessModes:
     - ReadWriteOnce

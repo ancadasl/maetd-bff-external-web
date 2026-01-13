@@ -4,7 +4,9 @@ metadata:
   name: arbitrary
 
 resources:
-- deployment.yaml
-- service.yaml
-- configmap.yaml
-- pvc-files-bde.yaml
+  - secret.yaml
+  - deployment.yaml
+  - service.yaml
+  - configmap.yaml
+  - pvc-files-bde.yaml
+
