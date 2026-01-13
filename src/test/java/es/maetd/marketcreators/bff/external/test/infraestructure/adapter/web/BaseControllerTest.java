@@ -64,5 +64,8 @@ class BaseControllerTest {
 
         // Then
         assertDoesNotThrow(() -> controller.doValidateCsbPermission(NUMBER_CSB));
+
+        verify(claims.get(CSB), times(1)).asString();
+        verify(claims.get(CSB), times(1)).isNull();
     }
 }
