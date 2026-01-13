@@ -38,6 +38,7 @@ class DocumentRepositoryRestAdapterTest {
     public static final String DESCRIPCION = "descripcion";
 
     public static final String CSB = "0049";
+    public static final String FILE_NAME = "fileTest.txt";
 
     @InjectMocks
     DocumentRepositoryRestAdapter adapter;
@@ -96,7 +97,7 @@ class DocumentRepositoryRestAdapterTest {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentDisposition(
-                ContentDisposition.attachment().filename("fileTest.txt").build());
+                ContentDisposition.attachment().filename(FILE_NAME).build());
 
         ResponseEntity<byte[]> response = new ResponseEntity<>(bytes, headers, HttpStatus.OK);
 
@@ -108,7 +109,7 @@ class DocumentRepositoryRestAdapterTest {
         // then
         Assertions.assertNotNull(result);
         Assertions.assertArrayEquals(bytes, result.getData());
-        Assertions.assertEquals("fileTest.txt", result.getDocumentName());
+        Assertions.assertEquals(FILE_NAME, result.getDocumentName());
 
         verify(restClient, times(1)).execute(any());
     }
@@ -131,7 +132,7 @@ class DocumentRepositoryRestAdapterTest {
 
         FileData file = new FileData();
         file.setId(UUID.randomUUID());
-        file.setFilename("fileTest.txt");
+        file.setFilename(FILE_NAME);
         file.setExternalWebFileData(createExternalWebFileData());
         file.setOriginSystem(OriginSystemType.EXTERNAL_WEB.name());
         return file;

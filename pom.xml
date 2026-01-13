@@ -303,7 +303,7 @@
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
-                <version>3.4.3</version>
+                <version>3.4.6</version>
                 <configuration>
                     <to>
                         <image>${DOCKER_REGISTRY_DOMAIN}/${project.artifactId}:${project.version}</image>
