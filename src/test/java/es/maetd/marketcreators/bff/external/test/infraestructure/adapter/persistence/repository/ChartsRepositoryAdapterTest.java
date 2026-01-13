@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.ChartResponseDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetChartsIDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.ProductType;
+import es.maetd.marketcreators.bff.external.application.service.dto.ChartResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetChartsIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.types.ProductType;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.*;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.*;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.ChartInfrastructureMapper;

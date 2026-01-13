@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.infrastructure.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.AuctionDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.AuctionDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.PrimaryAuctionEntity;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.SecondaryAuctionEntity;
 import org.mapstruct.Mapper;

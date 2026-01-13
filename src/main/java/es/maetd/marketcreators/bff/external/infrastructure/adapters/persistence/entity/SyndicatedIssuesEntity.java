@@ -28,7 +28,7 @@ public class SyndicatedIssuesEntity implements Serializable {
     private String month;
 
     @Column(name = "li")
-    private String li;
+    private Integer li;
 
     @Column(name = "bonds")
     private Integer bonds;

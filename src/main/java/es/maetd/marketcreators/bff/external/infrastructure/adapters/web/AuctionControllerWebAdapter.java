@@ -2,8 +2,9 @@ package es.maetd.marketcreators.bff.external.infrastructure.adapters.web;
 
 import es.maetd.marketcreators.bff.external.application.mappers.AuctionApplicationMapper;
 import es.maetd.marketcreators.bff.external.application.service.AuctionApplicationService;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.*;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.ProductType;
+import es.maetd.marketcreators.bff.external.application.service.dto.AuctionResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetAuctionsIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.types.ProductType;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.openapitools.api.AuctionsApi;

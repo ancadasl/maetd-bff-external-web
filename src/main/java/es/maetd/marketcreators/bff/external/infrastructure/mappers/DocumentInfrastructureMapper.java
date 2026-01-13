@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.infrastructure.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.DocumentDTO;
 import es.maetd.marketcreators.clients.rest.domains.files.model.ExternalWebFileData;
 import es.maetd.marketcreators.clients.rest.domains.files.model.FileData;
 import es.maetd.marketcreators.clients.rest.domains.files.model.FileList;
@@ -27,10 +27,9 @@ public interface DocumentInfrastructureMapper {
 
     @Named("mapDocumentsListToList")
     default List<DocumentDTO> map(FileList files) {
-        if (files == null || files.getData() == null || files.getData().isEmpty()) {
-            return Collections.emptyList();
-        }
-        return files.getData().stream().map(this::map).toList();
+        return (files == null || files.getData() == null || files.getData().isEmpty())
+                ? Collections.emptyList()
+                : files.getData().stream().map(this::map).toList();
     }
 
     default CategoryType mapCategoryEnum(ExternalWebFileData.CategoryTypeEnum categoryEnum) {

@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.application.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.EntityDTO;
 import es.maetd.marketcreators.common.mappers.BaseMapper;
 import java.util.List;
 import org.mapstruct.Mapper;

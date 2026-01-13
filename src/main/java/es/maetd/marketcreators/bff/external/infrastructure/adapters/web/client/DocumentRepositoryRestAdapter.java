@@ -1,10 +1,10 @@
 package es.maetd.marketcreators.bff.external.infrastructure.adapters.web.client;
 
 import es.maetd.marketcreators.bff.external.application.port.client.DocumentRepositoryPort;
+import es.maetd.marketcreators.bff.external.application.service.dto.DocumentDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.DocumentDataResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetDocumentsIDTO;
 import es.maetd.marketcreators.bff.external.exception.DocumentServiceException;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetDocumentsIDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.DocumentInfrastructureMapper;
 import es.maetd.marketcreators.clients.rest.domains.files.model.FileResponse;
 import es.maetd.marketcreators.clients.rest.exception.RestException;
@@ -64,6 +64,11 @@ public class DocumentRepositoryRestAdapter implements DocumentRepositoryPort {
                 .type(new ParameterizedTypeReference<>() {})
                 .build();
 
+        DocumentDataResponseDTO dto = DocumentDataResponseDTO.builder()
+                .list(Collections.emptyList())
+                .count(0)
+                .build();
+
         try {
             ResponseEntity<FileResponse> response = restClient.execute(requestIDTO);
 
@@ -73,7 +78,7 @@ public class DocumentRepositoryRestAdapter implements DocumentRepositoryPort {
 
                 List<DocumentDTO> documentsDtos = mapper.map(body.getFiles());
 
-                return DocumentDataResponseDTO.builder()
+                dto = DocumentDataResponseDTO.builder()
                         .list(documentsDtos)
                         .count(body.getCountFiles())
                         .build();
@@ -83,10 +88,7 @@ public class DocumentRepositoryRestAdapter implements DocumentRepositoryPort {
             log.error("Error calling getFileList  {}", rEx.getMessage());
         }
 
-        return DocumentDataResponseDTO.builder()
-                .list(Collections.emptyList())
-                .count(0)
-                .build();
+        return dto;
     }
 
     @Override

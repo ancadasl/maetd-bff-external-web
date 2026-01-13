@@ -1,7 +1,7 @@
 package es.maetd.marketcreators.bff.external.infrastructure.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationJointDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.EvaluationDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.EvaluationJointDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.EvaluationEntity;
 import java.util.Comparator;
 import java.util.List;

@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.application.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.AuctionDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.AuctionDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.openapitools.model.AuctionDataWDTO;

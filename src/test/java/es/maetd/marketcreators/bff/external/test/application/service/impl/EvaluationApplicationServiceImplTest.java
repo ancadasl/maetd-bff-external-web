@@ -3,10 +3,10 @@ package es.maetd.marketcreators.bff.external.test.application.service.impl;
 import static org.mockito.Mockito.*;
 
 import es.maetd.marketcreators.bff.external.application.port.EvaluationRepositoryPort;
+import es.maetd.marketcreators.bff.external.application.service.dto.*;
+import es.maetd.marketcreators.bff.external.application.service.dto.types.EvaluationStatus;
+import es.maetd.marketcreators.bff.external.application.service.dto.types.ProductType;
 import es.maetd.marketcreators.bff.external.application.service.impl.EvaluationApplicationServiceImpl;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.*;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.EvaluationStatus;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.ProductType;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +50,7 @@ class EvaluationApplicationServiceImplTest {
         EvaluationResponseDTO result = service.getEvaluations(getEvaluationsIDTO);
 
         // Then
-        Assertions.assertEquals(result.getList().get(0).getCsb(), evaluationDTO.getCsb());
+        Assertions.assertEquals(result.getList().get(0).getEvaluationId(), evaluationDTO.getEvaluationId());
 
         verify(port, times(1)).getEvaluations(any(GetEvaluationsIDTO.class));
     }

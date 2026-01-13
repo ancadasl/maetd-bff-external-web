@@ -1,7 +1,7 @@
 package es.maetd.marketcreators.bff.external.application.port;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.AuctionResponseDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetAuctionsIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.AuctionResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetAuctionsIDTO;
 
 public interface AuctionRepositoryPort {
 

@@ -2,9 +2,9 @@ package es.maetd.marketcreators.bff.external.infrastructure.adapters.web;
 
 import es.maetd.marketcreators.bff.external.application.mappers.DocumentApplicationMapper;
 import es.maetd.marketcreators.bff.external.application.service.DocumentApplicationService;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetDocumentsIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.DocumentDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.DocumentDataResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetDocumentsIDTO;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;

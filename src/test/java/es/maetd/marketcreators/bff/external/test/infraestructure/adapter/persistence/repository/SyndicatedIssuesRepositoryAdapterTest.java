@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetSyndicatedIssuesIDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetSyndicatedIssuesIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.SyndicatedIssuesDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.SyndicatedIssuesEntity;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.SyndicatedIssuesRepository;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.SyndicatedIssuesRepositoryAdapter;
@@ -76,7 +76,7 @@ class SyndicatedIssuesRepositoryAdapterTest {
         dto.setCsb("1280");
         dto.setYear(2023);
         dto.setMonth("NOVIEMBRE");
-        dto.setLi("10");
+        dto.setLi(1);
         dto.setBonds(5);
         return dto;
     }

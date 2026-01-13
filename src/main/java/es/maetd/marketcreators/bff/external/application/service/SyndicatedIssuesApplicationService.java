@@ -1,7 +1,7 @@
 package es.maetd.marketcreators.bff.external.application.service;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetSyndicatedIssuesIDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetSyndicatedIssuesIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.SyndicatedIssuesResponseDTO;
 
 /**
  * Service interface for retrieving Syndicated Issues.

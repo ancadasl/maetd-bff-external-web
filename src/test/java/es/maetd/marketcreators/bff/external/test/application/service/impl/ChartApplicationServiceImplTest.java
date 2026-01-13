@@ -3,9 +3,11 @@ package es.maetd.marketcreators.bff.external.test.application.service.impl;
 import static org.mockito.Mockito.*;
 
 import es.maetd.marketcreators.bff.external.application.port.ChartRepositoryPort;
+import es.maetd.marketcreators.bff.external.application.service.dto.ChartDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.ChartResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetChartsIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.types.ProductType;
 import es.maetd.marketcreators.bff.external.application.service.impl.ChartApplicationServiceImpl;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.*;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.ProductType;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;

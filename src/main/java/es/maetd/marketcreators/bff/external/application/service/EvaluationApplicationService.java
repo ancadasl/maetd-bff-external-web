@@ -1,6 +1,8 @@
 package es.maetd.marketcreators.bff.external.application.service;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.*;
+import es.maetd.marketcreators.bff.external.application.service.dto.EvaluationJointResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.EvaluationResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetEvaluationsIDTO;
 
 /**
  * Application service interface for retrieving evaluations.

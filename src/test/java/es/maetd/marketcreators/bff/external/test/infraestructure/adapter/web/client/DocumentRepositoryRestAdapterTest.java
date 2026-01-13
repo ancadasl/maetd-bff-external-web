@@ -3,10 +3,10 @@ package es.maetd.marketcreators.bff.external.test.infraestructure.adapter.web.cl
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+import es.maetd.marketcreators.bff.external.application.service.dto.DocumentDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.DocumentDataResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetDocumentsIDTO;
 import es.maetd.marketcreators.bff.external.exception.DocumentServiceException;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetDocumentsIDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.web.client.DocumentRepositoryRestAdapter;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.DocumentInfrastructureMapper;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.DocumentInfrastructureMapperImpl;

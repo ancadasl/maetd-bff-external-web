@@ -2,9 +2,9 @@ package es.maetd.marketcreators.bff.external.infrastructure.adapters.web;
 
 import es.maetd.marketcreators.bff.external.application.mappers.ChartApplicationMapper;
 import es.maetd.marketcreators.bff.external.application.service.ChartApplicationService;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.ChartResponseDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetChartsIDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.ProductType;
+import es.maetd.marketcreators.bff.external.application.service.dto.ChartResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetChartsIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.types.ProductType;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.openapitools.api.ChartsApi;

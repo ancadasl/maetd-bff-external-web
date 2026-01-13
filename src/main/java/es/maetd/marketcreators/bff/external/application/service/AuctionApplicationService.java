@@ -1,7 +1,7 @@
 package es.maetd.marketcreators.bff.external.application.service;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.AuctionResponseDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetAuctionsIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.AuctionResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetAuctionsIDTO;
 
 /**
  * Application service responsible for handling auction-related use cases.

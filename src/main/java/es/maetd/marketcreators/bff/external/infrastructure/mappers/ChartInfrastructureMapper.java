@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.infrastructure.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.ChartDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.ChartDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.*;
 import java.time.LocalDateTime;
 import java.util.Optional;

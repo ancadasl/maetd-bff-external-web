@@ -1,7 +1,9 @@
 package es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository;
 
 import es.maetd.marketcreators.bff.external.application.port.AuctionRepositoryPort;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.*;
+import es.maetd.marketcreators.bff.external.application.service.dto.AuctionDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.AuctionResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetAuctionsIDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.PrimaryAuctionEntity;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.SecondaryAuctionEntity;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.specification.PrimaryAuctionSpecification;

@@ -4,8 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.*;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.ProductType;
+import es.maetd.marketcreators.bff.external.application.service.dto.AuctionResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetAuctionsIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.types.ProductType;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.PrimaryAuctionEntity;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.SecondaryAuctionEntity;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.*;

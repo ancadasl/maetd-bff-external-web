@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.application.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.EvaluationDTO;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

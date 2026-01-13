@@ -8,7 +8,7 @@ import static org.mockito.Mockito.*;
 import es.maetd.marketcreators.bff.external.application.mappers.MarketCreatorApplicationMapper;
 import es.maetd.marketcreators.bff.external.application.mappers.MarketCreatorApplicationMapperImpl;
 import es.maetd.marketcreators.bff.external.application.service.MarketCreatorApplicationService;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.EntityDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.web.MarketCreatorsControllerWebAdapter;
 import java.util.List;
 import org.junit.jupiter.api.BeforeAll;

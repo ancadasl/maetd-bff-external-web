@@ -1,7 +1,7 @@
 package es.maetd.marketcreators.bff.external.infrastructure.adapters.web.client;
 
 import es.maetd.marketcreators.bff.external.application.port.client.MarketCreatorsPort;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.EntityDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.MarketCreatorInfrastructureMapper;
 import es.maetd.marketcreators.clients.rest.domains.creators.model.MarketCreatorsList;
 import es.maetd.marketcreators.clients.rest.exception.RestException;

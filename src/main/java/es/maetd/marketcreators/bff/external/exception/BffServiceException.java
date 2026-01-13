@@ -1,11 +1,10 @@
 package es.maetd.marketcreators.bff.external.exception;
 
-public class BffServiceException extends RuntimeException {
+import es.maetd.marketcreators.ddd.core.errors.DomainError;
+
+public class BffServiceException extends DomainError {
+
     public BffServiceException(String message) {
         super(message);
-    }
-
-    public BffServiceException(String message, Throwable cause) {
-        super(message, cause);
     }
 }

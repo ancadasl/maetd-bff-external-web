@@ -5,7 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.EntityDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.web.client.MarketCreatorsRepositoryRestAdapter;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.MarketCreatorInfrastructureMapper;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.MarketCreatorInfrastructureMapperImpl;

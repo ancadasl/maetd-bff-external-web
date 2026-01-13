@@ -2,8 +2,8 @@ package es.maetd.marketcreators.bff.external.application.service.impl;
 
 import es.maetd.marketcreators.bff.external.application.port.SyndicatedIssuesRepositoryPort;
 import es.maetd.marketcreators.bff.external.application.service.SyndicatedIssuesApplicationService;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetSyndicatedIssuesIDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetSyndicatedIssuesIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.SyndicatedIssuesResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

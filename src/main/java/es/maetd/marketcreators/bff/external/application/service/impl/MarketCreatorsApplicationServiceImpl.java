@@ -2,7 +2,7 @@ package es.maetd.marketcreators.bff.external.application.service.impl;
 
 import es.maetd.marketcreators.bff.external.application.port.client.MarketCreatorsPort;
 import es.maetd.marketcreators.bff.external.application.service.MarketCreatorApplicationService;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EntityDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.EntityDTO;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

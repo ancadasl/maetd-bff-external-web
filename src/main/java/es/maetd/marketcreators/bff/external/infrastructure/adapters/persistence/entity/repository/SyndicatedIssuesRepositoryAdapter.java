@@ -1,8 +1,8 @@
 package es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository;
 
 import es.maetd.marketcreators.bff.external.application.port.SyndicatedIssuesRepositoryPort;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetSyndicatedIssuesIDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetSyndicatedIssuesIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.SyndicatedIssuesDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.SyndicatedIssuesEntity;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.specification.SyndicatedIssueSpecification;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.SyndicatedIssuesInfrastructureMapper;

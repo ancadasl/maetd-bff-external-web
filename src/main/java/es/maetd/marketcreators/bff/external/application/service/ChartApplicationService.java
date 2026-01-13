@@ -1,7 +1,7 @@
 package es.maetd.marketcreators.bff.external.application.service;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.ChartResponseDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetChartsIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.ChartResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetChartsIDTO;
 
 /**
  * Application service responsible for handling chart-related use cases.

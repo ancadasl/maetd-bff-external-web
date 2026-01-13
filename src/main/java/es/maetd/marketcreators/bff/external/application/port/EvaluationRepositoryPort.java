@@ -1,8 +1,8 @@
 package es.maetd.marketcreators.bff.external.application.port;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationJointDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetEvaluationsIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.EvaluationDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.EvaluationJointDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetEvaluationsIDTO;
 import java.util.List;
 
 public interface EvaluationRepositoryPort {

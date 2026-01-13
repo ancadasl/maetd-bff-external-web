@@ -1,7 +1,9 @@
 package es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository;
 
 import es.maetd.marketcreators.bff.external.application.port.ChartRepositoryPort;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.*;
+import es.maetd.marketcreators.bff.external.application.service.dto.ChartDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.ChartResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetChartsIDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.*;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.specification.*;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.ChartInfrastructureMapper;

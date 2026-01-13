@@ -1,7 +1,7 @@
 package es.maetd.marketcreators.bff.external.infrastructure.adapters.web;
 
+import es.maetd.marketcreators.bff.external.application.service.dto.types.Role;
 import es.maetd.marketcreators.bff.external.exception.ForbiddenException;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.Role;
 import es.maetd.marketcreators.common.security.jwks.validator.spring.interceptor.UserTokenContext;
 import es.maetd.marketcreators.common.security.jwks.validator.spring.interceptor.UserTokenContextHolder;
 import java.util.Optional;

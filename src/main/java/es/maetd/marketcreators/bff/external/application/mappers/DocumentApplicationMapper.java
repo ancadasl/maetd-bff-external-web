@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.application.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.DocumentDTO;
 import es.maetd.marketcreators.ddd.core.events.domains.files.CategoryType;
 import java.util.Arrays;
 import java.util.List;

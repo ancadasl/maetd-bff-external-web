@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.ProductType;
+import es.maetd.marketcreators.bff.external.application.service.dto.types.ProductType;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;

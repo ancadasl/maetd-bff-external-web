@@ -3,8 +3,10 @@ package es.maetd.marketcreators.bff.external.test.application.service.impl;
 import static org.mockito.Mockito.*;
 
 import es.maetd.marketcreators.bff.external.application.port.SyndicatedIssuesRepositoryPort;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetSyndicatedIssuesIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.SyndicatedIssuesDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.SyndicatedIssuesResponseDTO;
 import es.maetd.marketcreators.bff.external.application.service.impl.SyndicatedIssuesApplicationServiceImpl;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.*;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

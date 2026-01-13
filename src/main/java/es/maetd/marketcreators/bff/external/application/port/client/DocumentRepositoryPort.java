@@ -1,8 +1,8 @@
 package es.maetd.marketcreators.bff.external.application.port.client;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.DocumentDataResponseDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetDocumentsIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.DocumentDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.DocumentDataResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetDocumentsIDTO;
 import java.util.UUID;
 
 public interface DocumentRepositoryPort {

@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.application.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.ChartDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.ChartDTO;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

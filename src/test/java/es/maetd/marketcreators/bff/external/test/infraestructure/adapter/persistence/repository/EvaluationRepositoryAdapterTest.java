@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.EvaluationDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetEvaluationsIDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.EvaluationStatus;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.types.ProductType;
+import es.maetd.marketcreators.bff.external.application.service.dto.EvaluationDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetEvaluationsIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.types.EvaluationStatus;
+import es.maetd.marketcreators.bff.external.application.service.dto.types.ProductType;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.EvaluationEntity;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.EvaluationRepository;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.EvaluationRepositoryAdapter;

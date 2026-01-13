@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 import es.maetd.marketcreators.bff.external.application.port.AuctionRepositoryPort;
+import es.maetd.marketcreators.bff.external.application.service.dto.AuctionDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.AuctionResponseDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.GetAuctionsIDTO;
 import es.maetd.marketcreators.bff.external.application.service.impl.AuctionApplicationServiceImpl;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.AuctionDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.AuctionResponseDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.GetAuctionsIDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

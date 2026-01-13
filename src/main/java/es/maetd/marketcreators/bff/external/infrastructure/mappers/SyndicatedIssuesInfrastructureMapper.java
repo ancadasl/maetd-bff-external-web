@@ -1,6 +1,6 @@
 package es.maetd.marketcreators.bff.external.infrastructure.mappers;
 
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.dto.SyndicatedIssuesDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.SyndicatedIssuesDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.SyndicatedIssuesEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
