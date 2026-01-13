@@ -49,11 +49,11 @@ class EvaluationControllerWebAdapterTest {
 
     private static EvaluationApplicationMapper mapperImpl;
 
+    static Map<String, Claim> claims = Map.of(CSB, mock(Claim.class));
+
     @BeforeAll
     static void setUp() {
         mapperImpl = new EvaluationApplicationMapperImpl();
-
-        Map<String, Claim> claims = Map.of(CSB, mock(Claim.class));
 
         when(claims.get(CSB).asString()).thenReturn(NUMBER_CSB);
         when(claims.get(CSB).isNull()).thenReturn(false);
@@ -107,6 +107,8 @@ class EvaluationControllerWebAdapterTest {
 
         verify(service, times(1)).getEvaluations(any(GetEvaluationsIDTO.class));
         verify(mapper, times(1)).map(anyList());
+        verify(claims.get(CSB), times(1)).asString();
+        verify(claims.get(CSB), times(1)).isNull();
     }
 
     public static EvaluationDTO createDummyEvaluationDataDto() {

@@ -48,11 +48,11 @@ class ChartControllerWebAdapterTest {
 
     public static final String CSB = "csb";
     public static final String NUMBER_CSB = "0128";
+    static Map<String, Claim> claims = Map.of(CSB, mock(Claim.class));
 
     @BeforeAll
     static void setUp() {
         mapperImpl = new ChartApplicationMapperImpl();
-        Map<String, Claim> claims = Map.of(CSB, mock(Claim.class));
 
         when(claims.get(CSB).asString()).thenReturn(NUMBER_CSB);
         when(claims.get(CSB).isNull()).thenReturn(false);
@@ -75,7 +75,7 @@ class ChartControllerWebAdapterTest {
         // given
         Optional<Integer> year = Optional.of(2021);
         Optional<String> productType = Optional.of(ProductType.BOND.name());
-        Optional<String> csb = Optional.of("0128");
+        Optional<String> csb = Optional.of(NUMBER_CSB);
 
         ChartDTO dto = createDummyChartDTO();
         ChartResponseDTO resCharts = ChartResponseDTO.builder()
@@ -101,6 +101,8 @@ class ChartControllerWebAdapterTest {
 
         verify(service, times(1)).getCharts(any(GetChartsIDTO.class));
         verify(mapper, times(4)).map(anyList());
+        verify(claims.get(CSB), times(1)).asString();
+        verify(claims.get(CSB), times(1)).isNull();
     }
 
     public static ChartDTO createDummyChartDTO() {

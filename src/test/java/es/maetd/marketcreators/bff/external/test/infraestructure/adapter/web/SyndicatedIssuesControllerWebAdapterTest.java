@@ -46,11 +46,12 @@ class SyndicatedIssuesControllerWebAdapterTest {
 
     public static final String CSB = "csb";
     public static final String NUMBER_CSB = "0128";
+    static Map<String, Claim> claims = Map.of(CSB, mock(Claim.class));
 
     @BeforeAll
     static void setUp() {
         mapperImpl = new SyndicatedIssuesApplicationMapperImpl();
-        Map<String, Claim> claims = Map.of(CSB, mock(Claim.class));
+
 
         when(claims.get(CSB).asString()).thenReturn(NUMBER_CSB);
         when(claims.get(CSB).isNull()).thenReturn(false);
@@ -95,6 +96,8 @@ class SyndicatedIssuesControllerWebAdapterTest {
 
         verify(service, times(1)).getSyndicatedIssues(any(GetSyndicatedIssuesIDTO.class));
         verify(mapper, times(1)).map(anyList());
+        verify(claims.get(CSB), times(1)).asString();
+        verify(claims.get(CSB), times(1)).isNull();
     }
 
     public static SyndicatedIssuesDTO createDummySyndicatedIssuesDto() {
