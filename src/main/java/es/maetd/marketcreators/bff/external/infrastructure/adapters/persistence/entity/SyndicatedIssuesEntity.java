@@ -16,7 +16,7 @@ public class SyndicatedIssuesEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private Integer id;
+    private Long id;
 
     @Column(name = "csb")
     private String csb;
@@ -30,6 +30,12 @@ public class SyndicatedIssuesEntity implements Serializable {
     @Column(name = "li")
     private Integer li;
 
-    @Column(name = "bonds")
-    private Integer bonds;
+    @Column(name = "size")
+    private Double size;
+
+    @Column(name = "expiration")
+    private Double expiration;
+
+    @Column(name = "currency")
+    private String currency;
 }

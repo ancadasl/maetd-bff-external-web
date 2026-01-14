@@ -15,6 +15,7 @@ import org.mapstruct.ReportingPolicy;
 public interface EvaluationInfrastructureMapper {
 
     @Mapping(source = "csb", target = "csb", qualifiedByName = "padCsb")
+    @Mapping(source = "bonds", target = "bond")
     EvaluationDTO map(EvaluationEntity entity);
 
     EvaluationEntity map(EvaluationDTO entity);
@@ -39,7 +40,7 @@ public interface EvaluationInfrastructureMapper {
                                     dto.getJointMonthly(),
                                     dto.getCumulative(),
                                     dto.getLetter(),
-                                    dto.getBonds());
+                                    dto.getBond());
                         },
                         (existing, replacement) -> {
                             // Combinamos los registros para no perder datos
@@ -50,7 +51,7 @@ public interface EvaluationInfrastructureMapper {
                                     ? existing.getCumulative()
                                     : replacement.getCumulative();
                             Long letter = existing.getLetter() != null ? existing.getLetter() : replacement.getLetter();
-                            Long bonds = existing.getBonds() != null ? existing.getBonds() : replacement.getBonds();
+                            Long bonds = existing.getBond() != null ? existing.getBond() : replacement.getBond();
 
                             return new EvaluationJointDTO(
                                     existing.getStatus(),

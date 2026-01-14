@@ -81,7 +81,7 @@ class EvaluationRepositoryAdapterTest {
         dto.setJointMonthly(15L);
         dto.setCumulative(15L);
         dto.setLetter(10L);
-        dto.setBonds(5L);
+        dto.setBond(5L);
         dto.setSubscription(12L);
         dto.setQuoting(8L);
         dto.setTrading(10L);

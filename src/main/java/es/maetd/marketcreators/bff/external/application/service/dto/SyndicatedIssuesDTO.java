@@ -14,5 +14,11 @@ public class SyndicatedIssuesDTO implements Serializable {
 
     private Long letter;
 
-    private Integer bonds;
+    private Double size;
+
+    private Double expiration;
+
+    private Boolean syndicated;
+
+    private String currency;
 }

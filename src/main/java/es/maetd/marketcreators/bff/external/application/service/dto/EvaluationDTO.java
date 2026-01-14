@@ -30,7 +30,7 @@ public class EvaluationDTO implements Serializable {
 
     private Long letter;
 
-    private Long bonds;
+    private Long bond;
 
     private Long subscription;
 

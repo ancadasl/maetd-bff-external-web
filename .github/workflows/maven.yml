@@ -1,0 +1,24 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+name: Build and Publish Library
+
+on:
+  release:
+    types: [created]
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    types: [opened, reopened, review_requested, edited]
+
+
+jobs:
+  call-workflow-passing-data:
+    uses: Zener-Soft-Consulting/zener-actions-workflows/.github/workflows/maetd-ms-base-workflow.yml@main
+    secrets:
+      mavenUser: ${{ vars.ZENER_ACTIONS_MAVEN_USERNAME }}
+      mavenPassword: ${{ secrets.ZENER_ACTIONS_MAVEN_PASSWORD }}
+      kubeConfig: ${{ secrets.KUBE_CONFIG }}
+      sonarUrl: ${{ secrets.SONAR_HOST_URL }}
+      sonarToken: ${{ secrets.SONAR_TOKEN }}
+      sonarProjectName: maetd-bff-external-web
+      sonarProjectKey: Zener-Soft-Consulting_maetd-bff-external-web_571546e9-8526-435e-bf82-21382df3d224

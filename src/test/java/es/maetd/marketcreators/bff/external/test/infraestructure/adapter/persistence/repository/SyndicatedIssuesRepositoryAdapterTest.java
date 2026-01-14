@@ -64,7 +64,7 @@ class SyndicatedIssuesRepositoryAdapterTest {
         List<SyndicatedIssuesDTO> result = adapter.getSyndicatedIssues(idtoMock);
 
         // Then
-        assertEquals(entity.getBonds(), result.get(0).getBonds());
+        assertEquals(entity.getSize(), result.get(0).getSize());
 
         verify(repository, times(1)).findAll(any(Specification.class));
         verify(mapper, times(1)).map(any(SyndicatedIssuesEntity.class));
@@ -77,7 +77,7 @@ class SyndicatedIssuesRepositoryAdapterTest {
         dto.setYear(2023);
         dto.setMonth("NOVIEMBRE");
         dto.setLi(1);
-        dto.setBonds(5);
+        dto.setSize(5.5);
         return dto;
     }
 }

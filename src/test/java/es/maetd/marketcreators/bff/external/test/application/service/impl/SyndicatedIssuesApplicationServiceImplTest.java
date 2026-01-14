@@ -64,7 +64,7 @@ class SyndicatedIssuesApplicationServiceImplTest {
         dto.setYear(2023L);
         dto.setMonth(1L);
         dto.setLetter(10L);
-        dto.setBonds(5);
+        dto.setSize(5.5);
         return dto;
     }
 }
