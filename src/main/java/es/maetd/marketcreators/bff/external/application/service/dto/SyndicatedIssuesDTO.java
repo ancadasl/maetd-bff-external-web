@@ -12,8 +12,6 @@ public class SyndicatedIssuesDTO implements Serializable {
 
     private Long month;
 
-    private Long letter;
-
     private Double size;
 
     private Double expiration;
