@@ -27,5 +27,5 @@ public class EvaluationJointDTO implements Serializable {
 
     private Long letter;
 
-    private Long bonds;
+    private Long bond;
 }

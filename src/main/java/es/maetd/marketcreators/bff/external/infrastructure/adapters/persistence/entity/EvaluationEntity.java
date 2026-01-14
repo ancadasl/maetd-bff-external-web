@@ -12,6 +12,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "v_evaluations")
+@IdClass(EvaluationEntityId.class)
 public class EvaluationEntity implements Serializable {
 
     @Serial
@@ -19,6 +20,11 @@ public class EvaluationEntity implements Serializable {
 
     @Id
     private Long id;
+
+    @Id
+    @Column(name = "product_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ProductType productType;
 
     @Column(name = "evaluation_id")
     private Long evaluationId;
@@ -77,8 +83,4 @@ public class EvaluationEntity implements Serializable {
 
     @Column(name = "second_round")
     private Double secondRound;
-
-    @Column(name = "product_type", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private ProductType productType;
 }

@@ -429,7 +429,7 @@ components:
           format: double
         letter:
           type: string
-        bonds:
+        bond:
           type: number
           format: double
         subscription:
@@ -483,7 +483,7 @@ components:
           format: double
         letter:
           type: string
-        bonds:
+        bond:
           type: number
           format: double
     AuctionData:
@@ -547,10 +547,14 @@ components:
           type: integer
         month:
           type: integer
-        letter:
-          type: integer
-        bonds:
-          type: integer
+        size:
+          type: number
+        expiration:
+          type: number
+        currency:
+          type: string
+        syndicated:
+          type: boolean
     FileBinaryData:
       type: string
       format: binary

@@ -52,7 +52,6 @@ class SyndicatedIssuesControllerWebAdapterTest {
     static void setUp() {
         mapperImpl = new SyndicatedIssuesApplicationMapperImpl();
 
-
         when(claims.get(CSB).asString()).thenReturn(NUMBER_CSB);
         when(claims.get(CSB).isNull()).thenReturn(false);
 
@@ -106,8 +105,8 @@ class SyndicatedIssuesControllerWebAdapterTest {
         dto.setCsb(NUMBER_CSB);
         dto.setYear(2023L);
         dto.setMonth(1L);
-        dto.setLetter(10L);
-        dto.setBonds(5);
+        dto.setExpiration(10.2);
+        dto.setSize(5.5);
         return dto;
     }
 }

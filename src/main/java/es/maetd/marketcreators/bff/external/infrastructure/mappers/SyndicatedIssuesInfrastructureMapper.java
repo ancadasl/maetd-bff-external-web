@@ -11,7 +11,7 @@ import org.mapstruct.ReportingPolicy;
 public interface SyndicatedIssuesInfrastructureMapper {
 
     @Mapping(source = "month", target = "month", qualifiedByName = "monthToNumber")
-    @Mapping(source = "li", target = "letter")
+    @Mapping(source = "li", target = "syndicated", qualifiedByName = "liToBoolean")
     SyndicatedIssuesDTO map(SyndicatedIssuesEntity entity);
 
     SyndicatedIssuesEntity map(SyndicatedIssuesDTO dto);
@@ -33,5 +33,10 @@ public interface SyndicatedIssuesInfrastructureMapper {
             case "DICIEMBRE" -> 12;
             default -> throw new IllegalArgumentException("Mes no válido: " + month);
         };
+    }
+
+    @Named("liToBoolean")
+    default Boolean liToBoolean(Integer li) {
+        return li == 1;
     }
 }

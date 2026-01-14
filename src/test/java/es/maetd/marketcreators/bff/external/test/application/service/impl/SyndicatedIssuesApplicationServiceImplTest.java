@@ -63,8 +63,8 @@ class SyndicatedIssuesApplicationServiceImplTest {
         dto.setCsb(NUMBER_CSB);
         dto.setYear(2023L);
         dto.setMonth(1L);
-        dto.setLetter(10L);
-        dto.setBonds(5);
+        dto.setExpiration(10.0);
+        dto.setSize(5.5);
         return dto;
     }
 }
