@@ -4,22 +4,12 @@ metadata:
   name: maetd-bff-external-web-configmap
   namespace: external-web
 data:
-
-  MAETD_DATABASE_URL_BFF_EXTERNAL_WEB: "jdbc:postgresql://maetd-zener-dev-db-postgresql-do-user-18010495-0.j.db.ondigitalocean.com:25061/maetd_ms_general_db_pool"
-  DATABASE_USERNAME: "maetddataweb"
+  MAETD_DATABASE_URL_BFF_EXTERNAL_WEB: "jdbc:postgresql://172.17.0.3:5432/maetd_ms_bff_external_web"
+  DATABASE_USERNAME: "postgres"
   DATABASE_DRIVER_CLASS_NAME: "org.postgresql.Driver"
   DATABASE_TYPE_NAME: "postgresql"
   DATABASE_OPERATION: "validate"
-  DATABASE_DEFAULT_SCHEMA: "marketcreators_dataweb"
-
-
-
-  #MAETD_DATABASE_URL_BFF_EXTERNAL_WEB: "jdbc:postgresql://172.17.0.3:5432/maetd_ms_bff_external_web"
-  #DATABASE_USERNAME: "postgres"
-  #DATABASE_DRIVER_CLASS_NAME: "org.postgresql.Driver"
-  #DATABASE_TYPE_NAME: "postgresql"
-  #DATABASE_OPERATION: "validate"
-  #DATABASE_DEFAULT_SCHEMA: "public"
+  DATABASE_DEFAULT_SCHEMA: "public"
 
   JWKS_URL_TOKEN: "http://maetd-dev.zenerconsulting.com:31036/realms/creators-external/protocol/openid-connect/certs"
   TOKEN_URL: "http://maetd-dev.zenerconsulting.com:31036/realms/creators-external/protocol/openid-connect/token"
