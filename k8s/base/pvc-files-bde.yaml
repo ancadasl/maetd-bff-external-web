@@ -5,8 +5,8 @@ metadata:
   namespace: external-web
 spec:
   accessModes:
-    - ReadWriteOnce
-  storageClassName: local-path
+    - ReadWriteMany
+  storageClassName: csi-s3
   resources:
     requests:
       storage: 2Gi
