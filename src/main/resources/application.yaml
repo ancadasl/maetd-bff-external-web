@@ -44,17 +44,19 @@ maetd:
           oauth-client-alias: internal_ms_oauth
           endpoints:
             getFileList:
-              url: ${CLIENT_REST_URL_FILE:http://maetd-ms-market-files:8080}/files
+              url: ${CLIENT_REST_URL_FILE:http://maetd-ms-market-files.default:8080}/files
               method: get
               headers:
                 "Content-Type": "application/json"
+
             uploadMultipleFiles:
-              url: ${CLIENT_REST_URL_FILE:http://maetd-ms-market-files:8080}/files/multi-upload
+              url: ${CLIENT_REST_URL_FILE:http://maetd-ms-market-files.default:8080}/files/multi-upload
               method: post
               headers:
                 "Content-Type": "multipart/form-data"
+
             getFileData:
-              url: ${CLIENT_REST_URL_FILE:http://maetd-ms-market-files:8080}/files/{id}/data
+              url: ${CLIENT_REST_URL_FILE:http://maetd-ms-market-files.default:8080}/files/{id}/data
               method: get
               description: Servicio para obtener el binario de un fichero
               headers:
@@ -66,12 +68,12 @@ maetd:
                   schema:
                     type: string
         CREATORS_MS:
-          oauth-client-alias: internal_ms_oauth
-          endpoints:
-            getCreators:
-              url: ${CLIENT_REST_URL_CREATOR:http://maetd-ms-market-creators:8080}/market-creators
-              method: get
-              headers:
-                "Content-Type": "application/json"
+              oauth-client-alias: internal_ms_oauth
+              endpoints:
+                getCreators:
+                  url: ${CLIENT_REST_URL_CREATOR:http://maetd-ms-market-creators.default:8080}/market-creators
+                  method: get
+                  headers:
+                    "Content-Type": "application/json"
 
 
