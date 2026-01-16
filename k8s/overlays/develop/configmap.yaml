@@ -13,5 +13,5 @@ data:
   CLIENT_REST_URL_FILE: "http://maetd-ms-market-files.default.svc.cluster.local:8080"
   CLIENT_REST_URL_CREATOR: "http://maetd-ms-market-creators.default.svc.cluster.local:8080"
   JWKS_URL_TOKEN: "http://maetd-dev.zenerconsulting.com:31036/realms/creators-external/protocol/openid-connect/certs"
-  TOKEN_URL: "http://maetd-dev.zenerconsulting.com:31036/realms/creators-external/protocol/openid-connect/token"
+  TOKEN_URL: "http://maetd-dev.zenerconsulting.com:31036/realms/maetd/protocol/openid-connect/token"
   VALIDATOR_TOKEN: "true"
