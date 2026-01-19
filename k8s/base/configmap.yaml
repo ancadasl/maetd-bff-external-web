@@ -18,4 +18,5 @@ data:
 
 
   # URL para validación de JWT
-  JWKS_URL_TOKEN: "http://maetd-dev.zenerconsulting.com:31036/realms/maetd/protocol/openid-connect/certs"
+  JWKS_URL_TOKEN: "http://maetd-dev.zenerconsulting.com:31036/realms/creators-externa/protocol/openid-connect/certs"
+  TOKEN_URL: "http://maetd-dev.zenerconsulting.com:31036/realms/maetd/protocol/openid-connect/token"
