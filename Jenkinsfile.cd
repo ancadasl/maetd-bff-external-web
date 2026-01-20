@@ -18,7 +18,7 @@ pipeline {
     stages {
         stage('Initialize variables') {
             steps{
-                configFileProvider([configFile(fileId: '3a1575eb-889a-4fa9-8987-7a6387aab8e3', variable: 'SETTINGS')]) {
+                configFileProvider([configFile(fileId: '39d31582-bdf1-4372-9338-6cf3efaa974a', variable: 'SETTINGS')]) {
                     script {
                         def props = readProperties file: "$SETTINGS"
                         DATABASE_URL = props.databaseUrl
