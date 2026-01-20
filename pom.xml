@@ -14,13 +14,14 @@
 
     <groupId>es.maetd.bff.external.web</groupId>
     <artifactId>maetd-bff-external-web</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>maetd-bff-external-web</name>
     <description>Microservicio BFF generado por el arquetipo MAETD</description>
 
     <properties>
         <java.version>17</java.version>
         <spring-cloud.version>2021.0.3</spring-cloud.version>
+        <testcontainers.version>1.17.3</testcontainers.version>
         <logbook.version>2.14.0</logbook.version>
         <problem-spring-web.version>0.27.0</problem-spring-web.version>
         <spotless-maven-plugin.version>2.22.8</spotless-maven-plugin.version>
@@ -68,7 +69,13 @@
         <dependency>
             <groupId>es.maetd.marketcreators</groupId>
             <artifactId>maetd-commons-conventions</artifactId>
-            <version>0.0.26</version>
+            <version>0.0.30</version>
+        </dependency>
+
+        <dependency>
+            <groupId>es.maetd.marketcreators</groupId>
+            <artifactId>maetd-dd-core</artifactId>
+            <version>0.0.49</version>
         </dependency>
 
         <!-- OpenAPI / Swagger -->
@@ -91,11 +98,23 @@
             <optional>true</optional>
         </dependency>
 
+        <!--        Persistence-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0.1</version>
+        </dependency>
+
         <!-- REST Client MAETD -->
         <dependency>
             <groupId>es.maetd.marketcreators</groupId>
             <artifactId>maetd-rest-clients</artifactId>
-            <version>1.0.36</version>
+            <version>1.0.38</version>
         </dependency>
 
         <!-- Observabilidad -->
@@ -106,8 +125,29 @@
 
         <!-- Tests -->
         <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+            <version>1.1.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -118,6 +158,13 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>${testcontainers.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -137,6 +184,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
 
             <!-- Generador OpenAPI -->
@@ -152,11 +207,15 @@
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/resources/openapi/api-definition.yaml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <modelNameSuffix>WDTO</modelNameSuffix>
+                            <modelNameSuffix>WDTO</modelNameSuffix>  <!-- Web DTO suffix -->
                             <configOptions>
-                                <interfaceOnly>true</interfaceOnly>
-                                <useLombok>true</useLombok>
                                 <dateLibrary>java8</dateLibrary>
+                                <java8>true</java8>
+                                <useBeanValidation>true</useBeanValidation>
+                                <interfaceOnly>true</interfaceOnly>
+                                <skipDefaultInterface>true</skipDefaultInterface>
+                                <useOptional>true</useOptional>
+                                <useLombok>true</useLombok>
                                 <openApiNullable>false</openApiNullable>
                             </configOptions>
                         </configuration>
@@ -205,6 +264,16 @@
                             <artifactId>lombok</artifactId>
                             <version>1.18.24</version>
                         </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>0.2.0</version>
+                        </path>
+                        <path>
+                            <groupId>org.hibernate</groupId>
+                            <artifactId>hibernate-jpamodelgen</artifactId>
+                            <version>5.6.15.Final</version>
+                        </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
@@ -234,7 +303,7 @@
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
-                <version>3.4.3</version>
+                <version>3.4.6</version>
                 <configuration>
                     <to>
                         <image>${DOCKER_REGISTRY_DOMAIN}/${project.artifactId}:${project.version}</image>

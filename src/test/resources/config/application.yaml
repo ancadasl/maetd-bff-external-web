@@ -1,0 +1,29 @@
+spring:
+  datasource:
+      hikari:
+        maximum-pool-size: 5
+        schema: public
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    generate-ddl: true
+    show-sql: true
+applications:
+  configuration:
+    byRevision:
+      path: http://msmarketglobalconfiguration.21dad23cc890419f9c78.westeurope.aksapp.io/configuration/{revision}
+
+
+maetd:
+  clients:
+    rest:
+      oauth2-engine:
+        active: false
+      systems:
+        CREATORS_MS:
+          endpoints:
+            getSystemConfigurations:
+              url: http://example.es/lalalal
+              method: get
+              headers:
+                "Content-Type": "application/json"

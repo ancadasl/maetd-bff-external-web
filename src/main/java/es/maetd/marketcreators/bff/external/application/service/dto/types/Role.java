@@ -1,0 +1,23 @@
+package es.maetd.marketcreators.bff.external.application.service.dto.types;
+
+import java.util.Arrays;
+import lombok.Getter;
+
+@Getter
+public enum Role {
+    IS_ADMIN("admin_eval_external_web"),
+    EVALUATION_ACCESS("evaluation_access");
+
+    private final String value;
+
+    Role(String value) {
+        this.value = value;
+    }
+
+    public static Role fromString(String name) {
+        return Arrays.stream(Role.values())
+                .filter(p -> p.name().equalsIgnoreCase(name))
+                .findFirst()
+                .orElseThrow();
+    }
+}

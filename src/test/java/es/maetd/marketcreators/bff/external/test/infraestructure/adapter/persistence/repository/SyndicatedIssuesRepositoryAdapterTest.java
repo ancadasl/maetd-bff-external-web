@@ -1,0 +1,83 @@
+package es.maetd.marketcreators.bff.external.test.infraestructure.adapter.persistence.repository;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+import es.maetd.marketcreators.bff.external.application.service.dto.GetSyndicatedIssuesIDTO;
+import es.maetd.marketcreators.bff.external.application.service.dto.SyndicatedIssuesDTO;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.SyndicatedIssuesEntity;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.SyndicatedIssuesRepository;
+import es.maetd.marketcreators.bff.external.infrastructure.adapters.persistence.entity.repository.SyndicatedIssuesRepositoryAdapter;
+import es.maetd.marketcreators.bff.external.infrastructure.mappers.SyndicatedIssuesInfrastructureMapper;
+import es.maetd.marketcreators.bff.external.infrastructure.mappers.SyndicatedIssuesInfrastructureMapperImpl;
+import java.util.List;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.jpa.domain.Specification;
+
+@ExtendWith(MockitoExtension.class)
+class SyndicatedIssuesRepositoryAdapterTest {
+
+    private static final int YEAR = 2022;
+
+    private static final int MONTH = 2;
+
+    private static final String CSB = "0125";
+
+    @InjectMocks
+    SyndicatedIssuesRepositoryAdapter adapter;
+
+    @Mock
+    SyndicatedIssuesRepository repository;
+
+    @Mock
+    SyndicatedIssuesInfrastructureMapper mapper;
+
+    private static SyndicatedIssuesInfrastructureMapperImpl mapperImpl;
+
+    @BeforeAll
+    static void setUp() {
+        mapperImpl = new SyndicatedIssuesInfrastructureMapperImpl();
+    }
+
+    @Test
+    void getEvaluationsShould_return_a_list_of_evaluations() {
+
+        // Given
+        SyndicatedIssuesEntity entity = createDummySyndicatedIssuesEntity();
+
+        // When
+        when(repository.findAll(any(Specification.class))).thenReturn(List.of(entity));
+        when(mapper.map(any(SyndicatedIssuesEntity.class))).thenReturn(mapperImpl.map(entity));
+
+        GetSyndicatedIssuesIDTO idtoMock = GetSyndicatedIssuesIDTO.builder()
+                .year(YEAR)
+                .month(MONTH)
+                .csb(CSB)
+                .build();
+
+        List<SyndicatedIssuesDTO> result = adapter.getSyndicatedIssues(idtoMock);
+
+        // Then
+        assertEquals(entity.getSize(), result.get(0).getSize());
+
+        verify(repository, times(1)).findAll(any(Specification.class));
+        verify(mapper, times(1)).map(any(SyndicatedIssuesEntity.class));
+    }
+
+    public static SyndicatedIssuesEntity createDummySyndicatedIssuesEntity() {
+        SyndicatedIssuesEntity dto = new SyndicatedIssuesEntity();
+
+        dto.setCsb("1280");
+        dto.setYear(2023);
+        dto.setMonth("NOVIEMBRE");
+        dto.setLi(1);
+        dto.setSize(5.5);
+        return dto;
+    }
+}
