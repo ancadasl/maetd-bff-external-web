@@ -14,7 +14,7 @@
 
     <groupId>es.maetd.bff.external.web</groupId>
     <artifactId>maetd-bff-external-web</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>maetd-bff-external-web</name>
     <description>Microservicio BFF generado por el arquetipo MAETD</description>
 
