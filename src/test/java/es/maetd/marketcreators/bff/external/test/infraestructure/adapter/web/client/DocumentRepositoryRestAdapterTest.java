@@ -10,10 +10,7 @@ import es.maetd.marketcreators.bff.external.exception.DocumentServiceException;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.web.client.DocumentRepositoryRestAdapter;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.DocumentInfrastructureMapper;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.DocumentInfrastructureMapperImpl;
-import es.maetd.marketcreators.clients.rest.domains.files.model.ExternalWebFileData;
-import es.maetd.marketcreators.clients.rest.domains.files.model.FileData;
-import es.maetd.marketcreators.clients.rest.domains.files.model.FileList;
-import es.maetd.marketcreators.clients.rest.domains.files.model.FileResponse;
+import es.maetd.marketcreators.clients.rest.domains.files.model.*;
 import es.maetd.marketcreators.clients.rest.service.base.RestClient;
 import es.maetd.marketcreators.clients.rest.service.dto.input.RequestIDTO;
 import es.maetd.marketcreators.ddd.core.events.domains.files.CategoryType;
@@ -133,16 +130,16 @@ class DocumentRepositoryRestAdapterTest {
         FileData file = new FileData();
         file.setId(UUID.randomUUID());
         file.setFilename(FILE_NAME);
-        file.setExternalWebFileData(createExternalWebFileData());
+        file.setFileWebMetadata(createExternalWebFileData());
         file.setOriginSystem(OriginSystemType.EXTERNAL_WEB.name());
         return file;
     }
 
-    private static ExternalWebFileData createExternalWebFileData() {
-        ExternalWebFileData data = new ExternalWebFileData();
+    private static FileWebMetadata createExternalWebFileData() {
+        FileWebMetadata data = new FileWebMetadata();
         data.setActive(true);
         data.setCsb(CSB);
-        data.setCategoryType(ExternalWebFileData.CategoryTypeEnum.ACTAS_BOND);
+        data.setCategoryType(FileWebMetadata.CategoryTypeEnum.ACTAS_BOND);
         data.setDescription(DESCRIPCION);
         return data;
     }
