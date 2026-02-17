@@ -117,6 +117,20 @@
             <version>1.0.38</version>
         </dependency>
 
+        <!-- REST Client SFTP -->
+        <dependency>
+            <groupId>es.maetd.marketcreators</groupId>
+            <artifactId>maetd-sftp-client</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- SSHJ SFTP -->
+        <dependency>
+            <groupId>com.hierynomus</groupId>
+            <artifactId>sshj</artifactId>
+            <version>0.40.0</version>
+        </dependency>
+
         <!-- Observabilidad -->
         <dependency>
             <groupId>io.micrometer</groupId>

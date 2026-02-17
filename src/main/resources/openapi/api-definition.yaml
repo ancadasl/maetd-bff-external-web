@@ -302,6 +302,36 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/MarketCreatorData'
+  /reports:
+    get:
+      operationId: getReports
+      description: Servicio para obtener un listado de informes
+      responses:
+        200:
+          description: Listado de informes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportsDataList'
+  /reports/data:
+    get:
+      operationId: getReportData
+      description: Servicio para obtener el binario de un informe de web externa
+      parameters:
+        - name: filename
+          in: query
+          description: Nombre del fichero
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Binario del fichero
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/FileBinaryData'
+
 components:
   schemas:
     DocumentDataList:
@@ -348,6 +378,7 @@ components:
             - BASKET_LETTER
             - BASKET_BOND
             - EVALUATION
+            - EMERGENCY_PROCESS
         creationDate:
           description: Fecha de creación
           type: string
@@ -405,6 +436,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ChartData'
+    ReportsDataList:
+      type: object
+      description: Listado de informes
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportData'
+        total:
+          description: Número total de informes
+          type: integer
     EvaluationData:
       type: object
       properties:
@@ -571,7 +613,20 @@ components:
           type: string
           description: Código CSB del creador
           example: 3880
-
+    ReportData:
+      type: object
+      description: Datos de Informe
+      properties:
+        name:
+          type: string
+          description: Nombre del fichero
+          example: 1
+        path:
+          type: string
+          description: Ruta del fichero
+        extension:
+          type: string
+          description: extension del fichero
   parameters:
     documentIdParam:
       name: id
