@@ -11,11 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 @Builder
 public class ReportDTO {
 
-    private String name;
+    private String fileName;
 
-    private String path;
+    private String filePath;
 
-    private String extension;
+    private String fileDate;
 
     private byte[] data;
 }

@@ -5,12 +5,11 @@ import es.maetd.marketcreators.bff.external.exception.ReportTransferException;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.ReportInfrastructureMapper;
 import es.maetd.marketcreators.sftp.client.configuration.props.FileTransferSFTPConfigurationProps;
 import es.maetd.marketcreators.sftp.client.service.FileTransferService;
-import es.maetd.marketcreators.sftp.client.service.dto.common.FileTransferCommonDTO;
 import es.maetd.marketcreators.sftp.client.service.dto.input.DownloadFileServiceIDTO;
 import java.io.File;
 import java.nio.file.Files;
-import java.util.Collections;
-import java.util.List;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.FileSystemResource;
@@ -27,26 +26,22 @@ public class ReportTransferSftpService {
 
     private final ReportInfrastructureMapper mapper;
 
-    public List<ReportDTO> getReports() {
-
-        List<ReportDTO> reportDTOList = Collections.emptyList();
-        try {
-            FileTransferCommonDTO dto = buildCommonDto();
-
-            reportDTOList = mapper.map(fileTransferService.listDirectory(dto, sftpProps.getDefaultUploadPath()));
-
-        } catch (Exception e) {
-            log.error("Error listening files SFTP", e);
-            throw new ReportTransferException("Error calling method list File in SFTP");
-        }
-        return reportDTOList;
-    }
-
-    public ReportDTO downloadReport(String fileName) {
+    public ReportDTO downloadReport(String path) {
 
         try {
-            String nameWithoutExtension = fileName.replaceFirst("[.][^.]+$", "");
-            String extension = fileName.substring(fileName.lastIndexOf('.') + 1);
+
+            Path filePath = Paths.get(path);
+
+            String fileName = filePath.getFileName().toString(); // informe.final.v2.2026.pdf
+
+            String nameWithoutExtension = fileName;
+            String extension = "";
+
+            int dotIndex = fileName.lastIndexOf('.');
+            if (dotIndex > 0) {
+                nameWithoutExtension = fileName.substring(0, dotIndex);
+                extension = fileName.substring(dotIndex + 1);
+            }
             File tempFile =
                     Files.createTempFile(nameWithoutExtension, "." + extension).toFile();
             tempFile.deleteOnExit();
@@ -58,7 +53,7 @@ public class ReportTransferSftpService {
                     .port(sftpProps.getPort())
                     .username(sftpProps.getUsername())
                     .password(sftpProps.getPassword())
-                    .originPath(sftpProps.getDefaultUploadPath() + "/" + fileName)
+                    .originPath(path)
                     .destinationResource(resource)
                     .build();
 
@@ -66,19 +61,10 @@ public class ReportTransferSftpService {
 
             byte[] data = Files.readAllBytes(tempFile.toPath());
 
-            return ReportDTO.builder().data(data).name(fileName).build();
+            return ReportDTO.builder().data(data).fileName(fileName).build();
 
         } catch (Exception e) {
             throw new ReportTransferException("Error downloading report from SFTP");
         }
-    }
-
-    private FileTransferCommonDTO buildCommonDto() {
-        FileTransferCommonDTO dto = new FileTransferCommonDTO();
-        dto.setHostname(sftpProps.getHostname());
-        dto.setPort(sftpProps.getPort());
-        dto.setUsername(sftpProps.getUsername());
-        dto.setPassword(sftpProps.getPassword());
-        return dto;
     }
 }

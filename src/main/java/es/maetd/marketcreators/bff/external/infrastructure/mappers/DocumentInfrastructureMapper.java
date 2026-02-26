@@ -18,9 +18,9 @@ import org.mapstruct.ReportingPolicy;
 public interface DocumentInfrastructureMapper {
 
     @Mapping(target = "documentName", source = "filename")
-    @Mapping(target = "categoryType", source = "externalWebFileData.categoryType")
-    @Mapping(target = "csb", source = "externalWebFileData.csb")
-    @Mapping(target = "description", source = "externalWebFileData.description")
+    @Mapping(target = "categoryType", source = "fileWebMetadata.categoryType")
+    @Mapping(target = "csb", source = "fileWebMetadata.csb")
+    @Mapping(target = "description", source = "fileWebMetadata.description")
     DocumentDTO map(FileData fileData);
 
     List<DocumentDTO> map(List<FileData> fileDataList);

@@ -302,10 +302,39 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/MarketCreatorData'
-  /reports:
+  /reports/creator/{id}:
     get:
       operationId: getReports
-      description: Servicio para obtener un listado de informes
+      description: Obtiene los informes de Mercado Ciego por creador
+      parameters:
+        - name: page
+          in: query
+          description: Número de pagina
+          required: true
+          schema:
+            type: integer
+        - name: size
+          in: query
+          description: Número de filas por pagina
+          required: true
+          schema:
+            type: integer
+        - name: id
+          in: path
+          description: Id del creador
+          schema:
+            type: integer
+          required: true
+        - name: year
+          in: query
+          description: Año
+          schema:
+            type: integer
+        - name: month
+          in: query
+          description: Mes
+          schema:
+            type: integer
       responses:
         200:
           description: Listado de informes
@@ -605,6 +634,10 @@ components:
       type: object
       description: Datos de los creadores de mercado
       properties:
+        id:
+          type: string
+          description: Id del creador
+          example: 1
         name:
           type: string
           description: Nombre del creador de mercado
@@ -617,16 +650,16 @@ components:
       type: object
       description: Datos de Informe
       properties:
-        name:
+        fileName:
           type: string
           description: Nombre del fichero
           example: 1
-        path:
+        filePath:
           type: string
           description: Ruta del fichero
-        extension:
+        fileDate:
           type: string
-          description: extension del fichero
+          description: fecha del fichero
   parameters:
     documentIdParam:
       name: id

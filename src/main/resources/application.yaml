@@ -82,5 +82,13 @@ maetd:
                   method: get
                   headers:
                     "Content-Type": "application/json"
+        EVALUATION_MS:
+              oauth-client-alias: internal_ms_oauth
+              endpoints:
+                getReports:
+                  url: ${CLIENT_REST_URL_EVALUATION:http://maetd-ms-market-evaluations.default.svc.cluster.local:8080}/reports
+                  method: get
+                  headers:
+                    "Content-Type": "application/json"
 
 

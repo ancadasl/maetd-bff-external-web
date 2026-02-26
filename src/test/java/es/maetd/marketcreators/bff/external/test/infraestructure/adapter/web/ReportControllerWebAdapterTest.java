@@ -5,11 +5,13 @@ import static org.mockito.Mockito.*;
 
 import es.maetd.marketcreators.bff.external.application.mappers.ReportApplicationMapper;
 import es.maetd.marketcreators.bff.external.application.mappers.ReportApplicationMapperImpl;
-import es.maetd.marketcreators.bff.external.application.service.dto.ReportDTO;
+import es.maetd.marketcreators.bff.external.application.service.ReportApplicationService;
+import es.maetd.marketcreators.bff.external.application.service.dto.*;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.sftp.ReportTransferSftpService;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.web.ReportControllerWebAdapter;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -26,8 +28,13 @@ import org.springframework.http.ResponseEntity;
 @ExtendWith(MockitoExtension.class)
 class ReportControllerWebAdapterTest {
 
+    public static final int BANKINTER = 15;
+
     @Mock
-    private ReportTransferSftpService service;
+    private ReportTransferSftpService sftpService;
+
+    @Mock
+    private ReportApplicationService service;
 
     @Mock
     private ReportApplicationMapper mapper;
@@ -46,19 +53,27 @@ class ReportControllerWebAdapterTest {
     void whenGetReportListIsCalled_thenResponseShouldBeOk() {
         // given
         ReportDTO dto = createDummyReportDTO();
+        ReportResponseDTO resDocument =
+                ReportResponseDTO.builder().list(List.of(dto)).build();
+
+        Integer page = 0;
+        Integer size = 15;
+        Integer creationId = BANKINTER;
+        Optional<Integer> year = Optional.of(2025);
+        Optional<Integer> month = Optional.of(8);
 
         // when
-        when(service.getReports()).thenReturn(List.of(dto));
+        when(service.getReports(any(GetReportsIDTO.class))).thenReturn(resDocument);
         when(mapper.map(anyList())).thenReturn(mapperImpl.map(List.of(dto)));
 
         // then
-        ResponseEntity<ReportsDataListWDTO> response = controller.getReports();
+        ResponseEntity<ReportsDataListWDTO> response = controller.getReports(page, size, creationId, year, month);
 
         Assertions.assertEquals(
-                dto.getName(),
-                Objects.requireNonNull(response.getBody()).getReports().get(0).getName());
+                dto.getFileName(),
+                Objects.requireNonNull(response.getBody()).getReports().get(0).getFileName());
 
-        verify(service, times(1)).getReports();
+        verify(service, times(1)).getReports(any(GetReportsIDTO.class));
         verify(mapper, times(1)).map(anyList());
     }
 
@@ -71,10 +86,10 @@ class ReportControllerWebAdapterTest {
 
         dto.setData(data);
 
-        when(service.downloadReport(dto.getName())).thenReturn(dto);
+        when(sftpService.downloadReport(dto.getFileName())).thenReturn(dto);
 
         // When
-        ResponseEntity<Resource> response = controller.getReportData(dto.getName());
+        ResponseEntity<Resource> response = controller.getReportData(dto.getFileName());
 
         // Then
         Assertions.assertTrue(response.getStatusCode().is2xxSuccessful());
@@ -91,14 +106,14 @@ class ReportControllerWebAdapterTest {
         Assertions.assertDoesNotThrow(
                 () -> Assertions.assertEquals(data.length, response.getBody().contentLength()));
 
-        verify(service, times(1)).downloadReport(dto.getName());
+        verify(sftpService, times(1)).downloadReport(dto.getFileName());
     }
 
     private ReportDTO createDummyReportDTO() {
         return ReportDTO.builder()
                 .data(new byte[0])
-                .name("fileTest.txt")
-                .path("/path")
+                .fileName("fileTest.txt")
+                .filePath("/path")
                 .build();
     }
 }
