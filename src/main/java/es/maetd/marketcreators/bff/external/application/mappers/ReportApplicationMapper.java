@@ -11,5 +11,5 @@ public interface ReportApplicationMapper {
 
     List<ReportDataWDTO> mapAsList(List<ReportDTO> fileData);
 
-    ReportDataWDTO mapAsList(ReportDTO fileData);
+    ReportDataWDTO map(ReportDTO fileData);
 }
