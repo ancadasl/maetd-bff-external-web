@@ -22,7 +22,7 @@ class ReportApplicationServiceImplTest {
     private BlindMarketPort repositoryPort;
 
     @Mock
-    private ReportTransferSftpRestAdapter sftpPort;
+    private ReportTransferSftpRestAdapter sftpAdapter;
 
     @InjectMocks
     private ReportApplicationServiceImpl service;
@@ -41,7 +41,7 @@ class ReportApplicationServiceImplTest {
         // Then
         assertEquals(expectedResponse, result);
         verify(repositoryPort, times(1)).getReports(input);
-        verifyNoInteractions(sftpPort);
+        verifyNoInteractions(sftpAdapter);
     }
 
     @Test
@@ -51,13 +51,13 @@ class ReportApplicationServiceImplTest {
         ReportDTO expectedReport = mock(ReportDTO.class);
 
         // When
-        when(sftpPort.downloadReport(filename)).thenReturn(expectedReport);
+        when(sftpAdapter.downloadReport(filename)).thenReturn(expectedReport);
 
-        ReportDTO result = sftpPort.downloadReport(filename);
+        ReportDTO result = sftpAdapter.downloadReport(filename);
 
         // Then
         assertEquals(expectedReport, result);
-        verify(sftpPort, times(1)).downloadReport(filename);
+        verify(sftpAdapter, times(1)).downloadReport(filename);
         verifyNoInteractions(repositoryPort);
     }
 }
