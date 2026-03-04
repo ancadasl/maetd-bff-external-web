@@ -9,7 +9,7 @@ import org.openapitools.model.ReportDataWDTO;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.WARN)
 public interface ReportApplicationMapper {
 
-    List<ReportDataWDTO> map(List<ReportDTO> fileData);
+    List<ReportDataWDTO> mapAsList(List<ReportDTO> fileData);
 
-    ReportDataWDTO map(ReportDTO fileData);
+    ReportDataWDTO mapAsList(ReportDTO fileData);
 }

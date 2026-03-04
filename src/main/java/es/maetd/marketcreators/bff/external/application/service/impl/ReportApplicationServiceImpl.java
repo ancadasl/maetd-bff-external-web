@@ -1,6 +1,7 @@
 package es.maetd.marketcreators.bff.external.application.service.impl;
 
 import es.maetd.marketcreators.bff.external.application.port.client.BlindMarketPort;
+import es.maetd.marketcreators.bff.external.application.port.client.ReportTransferSftpRestPort;
 import es.maetd.marketcreators.bff.external.application.service.ReportApplicationService;
 import es.maetd.marketcreators.bff.external.application.service.dto.*;
 import lombok.AllArgsConstructor;
@@ -14,8 +15,15 @@ public class ReportApplicationServiceImpl implements ReportApplicationService {
 
     private final BlindMarketPort repositoryPort;
 
+    private final ReportTransferSftpRestPort sftpRestPort;
+
     @Override
     public ReportResponseDTO getReports(GetReportsIDTO idto) {
         return repositoryPort.getReports(idto);
+    }
+
+    @Override
+    public ReportDTO downloadReport(String filename) {
+        return sftpRestPort.downloadReport(filename);
     }
 }

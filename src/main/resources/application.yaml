@@ -33,7 +33,7 @@ maetd:
       hostname: ${HOST_CLIENT_SFTP:maetd-dev.zenerconsulting.com}
       port:  ${PORT_CLIENT_SFTP:30222}
       username: ${USER_CLIENT_SFPT_ID:dev}
-      password: ${USER_CLIENT_SFPT_PWD}
+      password: ${USER_CLIENT_SFPT_PWD:ZGV2cGFzcw==}
       verifyHost: ${CLIENT_SFPT_VERIFY_HOST:false}
       defaultUploadPath: ${PATH_FILES_CLIENT_SFPT:/upload}
     rest:

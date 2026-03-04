@@ -5,7 +5,6 @@ import es.maetd.marketcreators.bff.external.application.service.ReportApplicatio
 import es.maetd.marketcreators.bff.external.application.service.dto.GetReportsIDTO;
 import es.maetd.marketcreators.bff.external.application.service.dto.ReportDTO;
 import es.maetd.marketcreators.bff.external.application.service.dto.ReportResponseDTO;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.sftp.ReportTransferSftpService;
 import java.util.Optional;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -23,17 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ReportControllerWebAdapter extends BaseController implements ReportsApi {
 
-    private final ReportTransferSftpService sftpService;
-
     private final ReportApplicationService service;
 
     private final ReportApplicationMapper mapper;
 
-    public ReportControllerWebAdapter(
-            ReportApplicationService service, ReportTransferSftpService sftpService, ReportApplicationMapper mapper) {
+    public ReportControllerWebAdapter(ReportApplicationService service, ReportApplicationMapper mapper) {
 
         this.service = service;
-        this.sftpService = sftpService;
         this.mapper = mapper;
     }
 
@@ -58,7 +53,7 @@ public class ReportControllerWebAdapter extends BaseController implements Report
 
         ReportsDataListWDTO response = new ReportsDataListWDTO();
         ReportResponseDTO dto = service.getReports(idto);
-        response.setReports(mapper.map(dto.getList()));
+        response.setReports(mapper.mapAsList(dto.getList()));
         response.setTotal(response.getReports().size());
         return ResponseEntity.ok(response);
     }
@@ -66,11 +61,11 @@ public class ReportControllerWebAdapter extends BaseController implements Report
     @Override
     @SneakyThrows
     @CrossOrigin(exposedHeaders = {"Content-Disposition", "Content-Type", "Content-Length", "Authorization"})
-    public ResponseEntity<Resource> getReportData(String filename) {
+    public ResponseEntity<Resource> getReportData(String filePath) {
 
-        log.info("Recovering file binary data with id : {}", filename);
+        log.info("Recovering file binary data with id : {}", filePath);
 
-        ReportDTO dto = sftpService.downloadReport(filename);
+        ReportDTO dto = service.downloadReport(filePath);
 
         log.info("Returning report: {}", dto.getFileName());
 

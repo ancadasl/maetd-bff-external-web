@@ -7,7 +7,6 @@ import es.maetd.marketcreators.bff.external.application.mappers.ReportApplicatio
 import es.maetd.marketcreators.bff.external.application.mappers.ReportApplicationMapperImpl;
 import es.maetd.marketcreators.bff.external.application.service.ReportApplicationService;
 import es.maetd.marketcreators.bff.external.application.service.dto.*;
-import es.maetd.marketcreators.bff.external.infrastructure.adapters.sftp.ReportTransferSftpService;
 import es.maetd.marketcreators.bff.external.infrastructure.adapters.web.ReportControllerWebAdapter;
 import java.util.List;
 import java.util.Objects;
@@ -29,9 +28,6 @@ import org.springframework.http.ResponseEntity;
 class ReportControllerWebAdapterTest {
 
     public static final int BANKINTER = 15;
-
-    @Mock
-    private ReportTransferSftpService sftpService;
 
     @Mock
     private ReportApplicationService service;
@@ -64,7 +60,7 @@ class ReportControllerWebAdapterTest {
 
         // when
         when(service.getReports(any(GetReportsIDTO.class))).thenReturn(resDocument);
-        when(mapper.map(anyList())).thenReturn(mapperImpl.map(List.of(dto)));
+        when(mapper.mapAsList(anyList())).thenReturn(mapperImpl.mapAsList(List.of(dto)));
 
         // then
         ResponseEntity<ReportsDataListWDTO> response = controller.getReports(page, size, creationId, year, month);
@@ -74,7 +70,7 @@ class ReportControllerWebAdapterTest {
                 Objects.requireNonNull(response.getBody()).getReports().get(0).getFileName());
 
         verify(service, times(1)).getReports(any(GetReportsIDTO.class));
-        verify(mapper, times(1)).map(anyList());
+        verify(mapper, times(1)).mapAsList(anyList());
     }
 
     @Test
@@ -86,7 +82,7 @@ class ReportControllerWebAdapterTest {
 
         dto.setData(data);
 
-        when(sftpService.downloadReport(dto.getFileName())).thenReturn(dto);
+        when(service.downloadReport(dto.getFileName())).thenReturn(dto);
 
         // When
         ResponseEntity<Resource> response = controller.getReportData(dto.getFileName());
@@ -106,7 +102,7 @@ class ReportControllerWebAdapterTest {
         Assertions.assertDoesNotThrow(
                 () -> Assertions.assertEquals(data.length, response.getBody().contentLength()));
 
-        verify(sftpService, times(1)).downloadReport(dto.getFileName());
+        verify(service, times(1)).downloadReport(dto.getFileName());
     }
 
     private ReportDTO createDummyReportDTO() {

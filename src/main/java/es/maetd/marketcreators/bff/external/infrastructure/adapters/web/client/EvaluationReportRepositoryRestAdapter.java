@@ -4,7 +4,7 @@ import es.maetd.marketcreators.bff.external.application.port.client.BlindMarketP
 import es.maetd.marketcreators.bff.external.application.service.dto.*;
 import es.maetd.marketcreators.bff.external.application.service.dto.GetReportsIDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.ReportInfrastructureMapper;
-import es.maetd.marketcreators.clients.rest.domains.blind.model.ReportList;
+import es.maetd.marketcreators.clients.rest.domains.evaluations.model.ReportList;
 import es.maetd.marketcreators.clients.rest.exception.RestException;
 import es.maetd.marketcreators.clients.rest.service.base.RestClient;
 import es.maetd.marketcreators.clients.rest.service.dto.input.RequestIDTO;
@@ -77,7 +77,7 @@ public class EvaluationReportRepositoryRestAdapter implements BlindMarketPort {
                 ReportList body = response.getBody();
 
                 dto = ReportResponseDTO.builder()
-                        .list(mapper.map(body.getReports()))
+                        .list(mapper.mapAsList(body.getReports()))
                         .count(body.getTotal())
                         .build();
             }

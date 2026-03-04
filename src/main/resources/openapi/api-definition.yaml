@@ -347,9 +347,9 @@ paths:
       operationId: getReportData
       description: Servicio para obtener el binario de un informe de web externa
       parameters:
-        - name: filename
+        - name: filePath
           in: query
-          description: Nombre del fichero
+          description: path del fichero
           required: true
           schema:
             type: string

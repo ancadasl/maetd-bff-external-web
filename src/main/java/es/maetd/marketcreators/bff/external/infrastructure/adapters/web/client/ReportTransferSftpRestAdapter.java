@@ -1,5 +1,6 @@
-package es.maetd.marketcreators.bff.external.infrastructure.adapters.sftp;
+package es.maetd.marketcreators.bff.external.infrastructure.adapters.web.client;
 
+import es.maetd.marketcreators.bff.external.application.port.client.ReportTransferSftpRestPort;
 import es.maetd.marketcreators.bff.external.application.service.dto.ReportDTO;
 import es.maetd.marketcreators.bff.external.exception.ReportTransferException;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.ReportInfrastructureMapper;
@@ -13,12 +14,12 @@ import java.nio.file.Paths;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 @Slf4j
-@Service
+@Component
 @RequiredArgsConstructor
-public class ReportTransferSftpService {
+public class ReportTransferSftpRestAdapter implements ReportTransferSftpRestPort {
 
     private final FileTransferService fileTransferService;
 
