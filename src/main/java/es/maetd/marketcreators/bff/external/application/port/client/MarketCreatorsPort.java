@@ -4,13 +4,20 @@ import es.maetd.marketcreators.bff.external.application.service.dto.EntityDTO;
 import java.util.List;
 
 /**
- * Interfaz para la comunicacion con los servicios correspondientes al micro ms-market-creators.
+ * Outbound Port interface for communication with the services
+ * corresponding to the "ms-market-creators" microservice.
+ *
+ * <p>
+ * Part of a hexagonal architecture, decoupling application logic
+ * from external service calls.
+ * </p>
  */
 public interface MarketCreatorsPort {
 
-    /** Recover all creators
+    /**
+     * Retrieves all market creators from the external microservice.
      *
-     * @return the list of creators
+     * @return a {@link List} of {@link EntityDTO} representing all creators.
      */
     List<EntityDTO> getCreators();
 }

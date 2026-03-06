@@ -114,7 +114,21 @@
         <dependency>
             <groupId>es.maetd.marketcreators</groupId>
             <artifactId>maetd-rest-clients</artifactId>
-            <version>1.0.39</version>
+            <version>1.0.42</version>
+        </dependency>
+
+        <!-- REST Client SFTP -->
+        <dependency>
+            <groupId>es.maetd.marketcreators</groupId>
+            <artifactId>maetd-sftp-client</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
+        <!-- SSHJ SFTP -->
+        <dependency>
+            <groupId>com.hierynomus</groupId>
+            <artifactId>sshj</artifactId>
+            <version>0.40.0</version>
         </dependency>
 
         <!-- Observabilidad -->
