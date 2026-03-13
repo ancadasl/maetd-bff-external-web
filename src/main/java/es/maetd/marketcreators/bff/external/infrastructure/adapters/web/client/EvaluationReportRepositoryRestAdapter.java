@@ -37,7 +37,7 @@ public class EvaluationReportRepositoryRestAdapter implements BlindMarketPort {
 
     private static final String TYPE = "type";
 
-    private static final String DAILY_CREATOR = "DAILY_CREATOR";
+    private static final String MONTHLY_CREATOR = "MONTHLY_CREATOR";
 
     private static final String YEAR = "year";
 
@@ -93,7 +93,7 @@ public class EvaluationReportRepositoryRestAdapter implements BlindMarketPort {
 
         queryParams.add(PAGE, String.valueOf(idto.getPage()));
         queryParams.add(SIZE, String.valueOf(idto.getSize()));
-        queryParams.add(TYPE, DAILY_CREATOR);
+        queryParams.add(TYPE, MONTHLY_CREATOR);
         queryParams.add(FIELD_ID, String.valueOf(idto.getCreatorId()));
 
         if (idto.getYear() != null) {
