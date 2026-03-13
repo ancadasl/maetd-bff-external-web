@@ -14,7 +14,7 @@
 
     <groupId>es.maetd.bff.external.web</groupId>
     <artifactId>maetd-bff-external-web</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <name>maetd-bff-external-web</name>
     <description>Microservicio BFF generado por el arquetipo MAETD</description>
 
@@ -114,7 +114,7 @@
         <dependency>
             <groupId>es.maetd.marketcreators</groupId>
             <artifactId>maetd-rest-clients</artifactId>
-            <version>1.0.42</version>
+            <version>1.0.47</version>
         </dependency>
 
         <!-- REST Client SFTP -->
