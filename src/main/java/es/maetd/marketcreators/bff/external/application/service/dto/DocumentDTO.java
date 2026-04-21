@@ -39,11 +39,9 @@ public class DocumentDTO {
     private OriginSystemType originSystem;
     private String description;
 
-    // Método auxiliar para establecer la fecha de creación automáticamente si no se provee
-
     /**
-     *
-     * @return
+     * Aux Method istance dafault date if the value is null
+     * @return LocalDateTime
      */
     public LocalDateTime getCreationDate() {
         if (creationDate == null) {

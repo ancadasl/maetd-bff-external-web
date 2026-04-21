@@ -32,6 +32,11 @@ spec:
                 secretKeyRef:
                   key: databasepass
                   name: maetd-bff-external-web-secret
+            - name: USER_CLIENT_SFPT_PWD
+              valueFrom:
+                secretKeyRef:
+                  key: sftpbasepass
+                  name: maetd-bff-external-web-secret
           volumeMounts:
             - mountPath: /mnt/maetd
               name: maetdstorage

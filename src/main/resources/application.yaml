@@ -29,6 +29,13 @@ maetd:
           - /health
         jwksUrl: ${JWKS_URL_TOKEN:http://maetd-dev.zenerconsulting.com:31036/realms/creators-external/protocol/openid-connect/certs}
   clients:
+    sftp:
+      hostname: ${HOST_CLIENT_SFTP:maetd-dev.zenerconsulting.com}
+      port:  ${PORT_CLIENT_SFTP:30222}
+      username: ${USER_CLIENT_SFPT_ID:dev}
+      password: ${USER_CLIENT_SFPT_PWD:ZGV2cGFzcw==}
+      verifyHost: ${CLIENT_SFPT_VERIFY_HOST:false}
+      defaultUploadPath: ${PATH_FILES_CLIENT_SFPT:/upload}
     rest:
       oauth2Engine:
         active: true
@@ -72,6 +79,14 @@ maetd:
               endpoints:
                 getCreators:
                   url: ${CLIENT_REST_URL_CREATOR:http://maetd-ms-market-creators.default.svc.cluster.local:8080}/market-creators
+                  method: get
+                  headers:
+                    "Content-Type": "application/json"
+        EVALUATION_MS:
+              oauth-client-alias: internal_ms_oauth
+              endpoints:
+                getReports:
+                  url: ${CLIENT_REST_URL_EVALUATION:http://maetd-ms-market-evaluations.default.svc.cluster.local:8080}/reports
                   method: get
                   headers:
                     "Content-Type": "application/json"
