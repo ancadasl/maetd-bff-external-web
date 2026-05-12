@@ -3,3 +3,4 @@ resources:
 patches:
   - path: configmap.yaml
   - path: secret.yaml
+  - path: pvc-files-bde.yaml

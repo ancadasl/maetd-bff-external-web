@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 public class EntityDTO implements Serializable {
 
+    private String id;
+
     private String name;
 
     private String csb;

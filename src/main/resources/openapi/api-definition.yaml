@@ -302,6 +302,65 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/MarketCreatorData'
+  /reports/creator/{id}:
+    get:
+      operationId: getReports
+      description: Obtiene los informes de Mercado Ciego por creador
+      parameters:
+        - name: page
+          in: query
+          description: Número de pagina
+          required: true
+          schema:
+            type: integer
+        - name: size
+          in: query
+          description: Número de filas por pagina
+          required: true
+          schema:
+            type: integer
+        - name: id
+          in: path
+          description: Id del creador
+          schema:
+            type: integer
+          required: true
+        - name: year
+          in: query
+          description: Año
+          schema:
+            type: integer
+        - name: month
+          in: query
+          description: Mes
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Listado de informes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportsDataList'
+  /reports/data:
+    get:
+      operationId: getReportData
+      description: Servicio para obtener el binario de un informe de web externa
+      parameters:
+        - name: filePath
+          in: query
+          description: path del fichero
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Binario del fichero
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/FileBinaryData'
+
 components:
   schemas:
     DocumentDataList:
@@ -348,6 +407,7 @@ components:
             - BASKET_LETTER
             - BASKET_BOND
             - EVALUATION
+            - EMERGENCY_PROCESS
         creationDate:
           description: Fecha de creación
           type: string
@@ -405,6 +465,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ChartData'
+    ReportsDataList:
+      type: object
+      description: Listado de informes
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportData'
+        total:
+          description: Número total de informes
+          type: integer
     EvaluationData:
       type: object
       properties:
@@ -563,6 +634,10 @@ components:
       type: object
       description: Datos de los creadores de mercado
       properties:
+        id:
+          type: string
+          description: Id del creador
+          example: 1
         name:
           type: string
           description: Nombre del creador de mercado
@@ -571,7 +646,20 @@ components:
           type: string
           description: Código CSB del creador
           example: 3880
-
+    ReportData:
+      type: object
+      description: Datos de Informe
+      properties:
+        fileName:
+          type: string
+          description: Nombre del fichero
+          example: 1
+        filePath:
+          type: string
+          description: Ruta del fichero
+        fileDate:
+          type: string
+          description: fecha del fichero
   parameters:
     documentIdParam:
       name: id

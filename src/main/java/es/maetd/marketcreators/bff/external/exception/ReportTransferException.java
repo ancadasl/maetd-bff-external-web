@@ -1,0 +1,15 @@
+package es.maetd.marketcreators.bff.external.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class ReportTransferException extends BffServiceException {
+
+    private static final String ERROR_CODE = "REPORT_ERROR";
+    private static final Integer HTTP_CODE = HttpStatus.BAD_REQUEST.value();
+
+    public ReportTransferException(String errorMessage) {
+        super(errorMessage, ERROR_CODE, HTTP_CODE);
+    }
+}
