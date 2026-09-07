@@ -3,6 +3,7 @@ package es.maetd.marketcreators.bff.external.infrastructure.adapters.web.client;
 import es.maetd.marketcreators.bff.external.application.port.client.MarketCreatorsPort;
 import es.maetd.marketcreators.bff.external.application.service.dto.EntityDTO;
 import es.maetd.marketcreators.bff.external.infrastructure.mappers.MarketCreatorInfrastructureMapper;
+import es.maetd.marketcreators.clients.rest.domains.creators.model.MarketCreatorData.StatusEnum;
 import es.maetd.marketcreators.clients.rest.domains.creators.model.MarketCreatorsList;
 import es.maetd.marketcreators.clients.rest.exception.RestException;
 import es.maetd.marketcreators.clients.rest.service.base.RestClient;
@@ -41,7 +42,9 @@ public class MarketCreatorsRepositoryRestAdapter implements MarketCreatorsPort {
         try {
             ResponseEntity<MarketCreatorsList> response = restClient.execute(request);
             if (HttpStatus.OK.equals(response.getStatusCode())) {
-                list = mapper.mapAsList(response.getBody().getData());
+                list = mapper.mapAsList(response.getBody().getData().stream()
+                        .filter(c -> StatusEnum.ENABLED.equals(c.getStatus()))
+                        .toList());
             }
 
         } catch (RestException rEx) {

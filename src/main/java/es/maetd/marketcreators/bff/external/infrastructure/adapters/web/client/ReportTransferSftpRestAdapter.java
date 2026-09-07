@@ -11,8 +11,13 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.SystemUtils;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 
@@ -43,8 +48,19 @@ public class ReportTransferSftpRestAdapter implements ReportTransferSftpRestPort
                 nameWithoutExtension = fileName.substring(0, dotIndex);
                 extension = fileName.substring(dotIndex + 1);
             }
-            File tempFile =
-                    Files.createTempFile(nameWithoutExtension, "." + extension).toFile();
+            File tempFile = null;
+            if (SystemUtils.IS_OS_UNIX) {
+                FileAttribute<Set<PosixFilePermission>> attr =
+                        PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"));
+                tempFile = Files.createTempFile(nameWithoutExtension, "." + extension, attr)
+                        .toFile(); // Compliant
+            } else {
+                tempFile = Files.createTempFile(nameWithoutExtension, "." + extension)
+                        .toFile(); // Compliant
+                tempFile.setReadable(true, true);
+                tempFile.setWritable(true, true);
+                tempFile.setExecutable(true, true);
+            }
             tempFile.deleteOnExit();
 
             FileSystemResource resource = new FileSystemResource(tempFile);

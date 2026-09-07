@@ -9,7 +9,7 @@ pipeline {
         CLAIR_THRESHOLD = 'High'
         CLAIR_MAX_VULNERABILITIES = '10'
         DOCKER_REPO = 'nexus-registry-devsecops-test.apps.ocp2.tesoro.es'
-        APP_NAME = 'maetd-ms-market-blind'
+        APP_NAME = 'maetd-bff-external-web'
     }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
@@ -18,7 +18,7 @@ pipeline {
     stages {
         stage('Initialize variables') {
             steps{
-                configFileProvider([configFile(fileId: '3a1575eb-889a-4fa9-8987-7a6387aab8e3', variable: 'SETTINGS')]) {
+                configFileProvider([configFile(fileId: '39d31582-bdf1-4372-9338-6cf3efaa974a', variable: 'SETTINGS')]) {
                     script {
                         def props = readProperties file: "$SETTINGS"
                         DATABASE_URL = props.databaseUrl
@@ -41,7 +41,7 @@ pipeline {
             steps {
                 container('jenkins-agent') {
                     sh 'oc whoami'
-                    sh 'oc project creadores-mercado'
+                    sh 'oc project external-web'
                     sh 'skaffold version'
                     sh 'PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)'
                     sh 'PROJECT_NAME=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)'

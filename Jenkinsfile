@@ -9,7 +9,7 @@ pipeline {
         CLAIR_THRESHOLD = 'High'
         CLAIR_MAX_VULNERABILITIES = '10'
         DOCKER_REPO = 'nexus-registry-devsecops-test.apps.ocp2.tesoro.es'
-        APP_NAME = 'maetd-ms-market-blind'
+        APP_NAME = 'maetd-bff-external-web'
     }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
