@@ -37,14 +37,6 @@ spec:
                 secretKeyRef:
                   key: sftpbasepass
                   name: maetd-bff-external-web-secret
-          volumeMounts:
-            - mountPath: /mnt/maetd
-              name: maetdstorage
           resources:
             limits:
               memory: "786Mi"
-      volumes:
-        - name: maetdstorage
-          persistentVolumeClaim:
-            claimName: pvc-files-bde
-            readOnly: true
