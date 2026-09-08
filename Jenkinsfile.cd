@@ -33,6 +33,12 @@ pipeline {
                         CLIENT_SECRET = props.clientSecret
                         CLIENT_REST_URL_CREATOR = props.creatorsClientRestUrl
                         CLIENT_REST_URL_FILE = props.fileClientRestUrl
+                        HOST_CLIENT_SFTP = props.sftpHost
+                        PORT_CLIENT_SFTP = props.sftpPort
+                        USER_CLIENT_SFPT_ID = props.sftpUser
+                        USER_CLIENT_SFPT_PWD = props.sftpPassword
+                        CLIENT_SFPT_VERIFY_HOST = props.sftpVerify
+                        PATH_FILES_CLIENT_SFPT = props.sftpPath
                      }
                 }
             }
@@ -47,7 +53,7 @@ pipeline {
                     sh 'PROJECT_NAME=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)'
                     sh 'DOCKER_IMAGE_URL=nexus-registry-devsecops-test.apps.ocp2.tesoro.es/$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout):$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) yq -i \'.spec.template.spec.containers[0].image = strenv(DOCKER_IMAGE_URL)\' k8s/base/deployment.yaml'
                     sh 'cat k8s/base/deployment.yaml'
-                    sh "yq -i '.data.MAETD_DATABASE_URL_BLIND_MARKET = \"${DATABASE_URL}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.MAETD_DATABASE_URL_BFF_EXTERNAL_WEB = \"${DATABASE_URL}\"' k8s/base/configmap.yaml"
                     sh "yq -i '.data.DATABASE_USERNAME = \"${DATABASE_USER}\"' k8s/base/configmap.yaml"
                     sh "yq -i '.data.DATABASE_DRIVER_CLASS_NAME = \"${DATABASE_DRIVER_CLASS_NAME}\"' k8s/base/configmap.yaml"
                     sh "yq -i '.data.DATABASE_TYPE_NAME = \"${DATABASE_TYPE_NAME}\"' k8s/base/configmap.yaml"
@@ -59,6 +65,12 @@ pipeline {
                     sh "yq -i '.data.TOKEN_URL = \"${TOKEN_URL}\"' k8s/base/configmap.yaml"
                     sh "yq -i '.data.CLIENT_ID = \"${CLIENT_ID}\"' k8s/base/configmap.yaml"
                     sh "yq -i '.data.CLIENT_SECRET = \"${CLIENT_SECRET}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.HOST_CLIENT_SFTP = \"${HOST_CLIENT_SFTP}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.PORT_CLIENT_SFTP = \"${PORT_CLIENT_SFTP}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.USER_CLIENT_SFPT_ID = \"${USER_CLIENT_SFPT_ID}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.USER_CLIENT_SFPT_PWD = \"${USER_CLIENT_SFPT_PWD}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.CLIENT_SFPT_VERIFY_HOST = \"${CLIENT_SFPT_VERIFY_HOST}\"' k8s/base/configmap.yaml"
+                    sh "yq -i '.data.PATH_FILES_CLIENT_SFPT = \"${PATH_FILES_CLIENT_SFPT}\"' k8s/base/configmap.yaml"
                     sh 'cat k8s/base/configmap.yaml'
                     sh 'rm -f k8s/base/ingress.yaml'
 //                    sh 'skaffold deploy --tag $(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)'
